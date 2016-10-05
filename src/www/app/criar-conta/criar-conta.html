@@ -1,0 +1,20 @@
+<ion-view hide-nav-bar="true">
+    <ion-content class="bg-login" ng-style="{'background-image':'url('+ fundoLogin + ')'}" has-bouncing="false">
+        <div class="hero no-header flat">
+            <div class="content">
+                <div class="app-icon"></div>
+                <h1>Musikr</h1>
+                <h4>Crie sua conta rapidamente</h4>
+            </div>
+        </div>
+        <div class="list">
+            <ion-md-input placeholder="Nome" highlight-color="balanced" type="text" ng-model="dados.nome"></ion-md-input>
+            <ion-md-input placeholder="E-mail" highlight-color="balanced" type="email" ng-model="dados.email"></ion-md-input>
+            <ion-md-input placeholder="Senha" highlight-color="balanced" type="password" ng-model="dados.senha"></ion-md-input>
+        </div>
+        <div class="padding">
+            <button class="button button-full button-light" ng-click="criar()">Criar</button>
+            <button ui-sref="app.login" class="button button-full button-balanced" nav-direction="back">Já tenho uma conta</button>
+        </div>
+    </ion-content>
+</ion-view>
