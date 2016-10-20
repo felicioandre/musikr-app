@@ -1,0 +1,20 @@
+<ion-view>
+    <ion-content class="bg-login" ng-style="{'background-image':'url('+ fundoLogin + ')'}" has-bouncing="false">
+        <form ng-submit="redefinirSenha()">
+            <div class="header-signup">
+                <div class="content">
+                    <div class="app-icon"></div>
+                    <h1>Musikr</h1>
+                    <h4>Digite uma nova senha</h4>
+                </div>
+            </div>
+            <div class="list">
+                <<ion-md-input placeholder="Senha" highlight-color="balanced" type="password" ng-model="dados.senha"></ion-md-input>
+                <ion-md-input placeholder="Digite Novamente" highlight-color="balanced" type="password" ng-model="dados.confirmacaosenha"></ion-md-input>
+            </div>
+            <div class="padding">
+                <button class="button button-full button-light" type="submit">Redefinir Senha</button>
+            </div>
+        </form>
+    </ion-content>
+</ion-view>

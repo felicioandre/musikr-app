@@ -1,41 +1,49 @@
-app.controller('LoginCtrl', function($scope, 
-                                     $timeout, 
-                                     $state, 
-                                     $ionicPopup, 
-                                     $stateParams, 
-                                     ionicMaterialInk, 
-                                     $ionicSideMenuDelegate, 
-                                     $http,
-                                     $ionicLoading) {
+app.controller('LoginCtrl', function($scope,
+    $timeout,
+    $state,
+    $stateParams,
+    ionicMaterialInk,
+    $ionicSideMenuDelegate,
+    $http,
+    $ionicLoading,
+    $ionicViewSwitcher,
+    $ionicHistory) {
 
-    if(window.localStorage.getItem("token") != null){
-        //codigo pra mandar pra home
-        //$state.go("app.criarconta"); 
+    $ionicHistory.nextViewOptions({
+        disableBack: true
+    });
+    
+    if (window.localStorage.getItem("token") != null) {
         $http({
-            method: "POST",
-            url: SERVIDOR + "account/is-alive",
-            headers: {
-                "Authorization": "Bearer " + window.localStorage.getItem("token")
-            }
-        })
-        .success(function(data) {
-            $state.go("app.criarconta"); 
-        })
-        .error(function(data) {
-//            console.log(window.localStorage.getItem("token"));
-window.localStorage.removeItem("token");
-});
+                method: "POST",
+                url: SERVIDOR + "account/is-alive",
+                headers: {
+                    "Authorization": "Bearer " + window.localStorage.getItem("token")
+                }
+            })
+            .success(function(data) {
+                if(data.step == 1){
+                    $state.go("app.primeiroacesso-step01");    
+                } else if(data.step == 2){
+                    $state.go("app.primeiroacesso-step02");
+                } else if(data.step == 3){
+                    $state.go("app.primeiroacesso-step03");
+                } else{
+                    $state.go("app.home");
+                }
+            })
+            .error(function(data) {
+                //            console.log(window.localStorage.getItem("token"));
+                window.localStorage.removeItem("token");
+            });
         //
-        
+
     }
 
     $ionicSideMenuDelegate.canDragContent(false)
 
     $scope.$parent.clearFabs();
 
-    $timeout(function() {
-        $scope.$parent.hideHeader();
-    }, 0);
     ionicMaterialInk.displayEffect();
 
     $scope.fundoLogin = "images/login" + (Math.floor(Math.random() * 10) + 1) + ".jpg";
@@ -44,7 +52,7 @@ window.localStorage.removeItem("token");
     $scope.dados.email = null;
     $scope.dados.senha = null;
 
-    $scope.login = function(){
+    $scope.login = function() {
         /*$http.get(SERVIDOR + "account/testemetodo")
         .success(function(data) {
             alert(JSON.stringify(data));
@@ -59,53 +67,49 @@ window.localStorage.removeItem("token");
             showDelay: 0
         });
         $http.post(SERVIDOR + "account/login", $scope.dados)
-        .success(function(data) {
-            //alert(JSON.stringify(data));
-            $ionicLoading.hide();
-            console.log(data == 2);
-            console.log(data);
-            
-            if(data.access_token != null){
-                window.localStorage.setItem("token", data.access_token);
-                window.localStorage.setItem("nomeUsuario", data.userName);
-                console.log(window.localStorage.getItem("nomeUsuario"));
-                //window.localStorage.setItem("expireDate", data.)
-                $state.go("app.criarconta");    
-            } else if(data.trocaSenha == 1){
-                window.localStorage.setItem("idUsuario", data.idUsuario);
-                $state.go("app.esquecisenha"); 
-            }
-
-
-             /*else if(JSON.stringify(data) == 0){
+            .success(function(data) {
+                //alert(JSON.stringify(data));
+                $ionicLoading.hide();
+                //console.log(data == 2);
+                console.log(data);
+                if (data.token != null) {
+                    window.localStorage.setItem("token", data.token.access_token);
+                    window.localStorage.setItem("nomeUsuario", data.token.userName);
+                    window.localStorage.setItem("idUsuario", data.token.idUser);
+                    //console.log(window.localStorage.getItem("nomeUsuario"));
+                    //window.localStorage.setItem("expireDate", data.)
+                    $ionicViewSwitcher.nextDirection("forward");
+                    if(data.trocaSenha == 1){
+                        $state.go("app.recuperarsenha");
+                    } else if(data.step == 1){
+                        $state.go("app.primeiroacesso-step01");    
+                    } else if(data.step == 2){
+                        $state.go("app.primeiroacesso-step02");
+                    } else if(data.step == 3){
+                        $state.go("app.primeiroacesso-step03");
+                    } else{
+                        $state.go("app.home");
+                    }
+                    
+                }
+                /*else if(JSON.stringify(data) == 0){
                 console.log(0);
                 $scope.showAlert('E-mail ou Senha inválidos!', 'Por favor, tente novamente.', null)
             }*/
-            
-        })
-        .error(function(data, statusCode){
-            $ionicLoading.hide();
-            if(statusCode == 400){
-                if(data.ModelState){
-                    $scope.showAlert('Ocorreu um erro!', parseErrors(data), null);
+
+            })
+            .error(function(data, statusCode) {
+                $ionicLoading.hide();
+                if (statusCode == 400) {
+                    if (data.ModelState) {
+                        $scope.showAlert('Ocorreu um erro!', parseErrors(data));
+                    }
+                } else {
+                    $scope.showAlert('Ocorreu um erro inesperado!', 'Por favor, tente novamente mais tarde.')
                 }
-            } else{
-                $scope.showAlert('Ocorreu um erro inesperado!', 'Por favor, tente novamente mais tarde.', null) 
-            }
 
-        });
+            });
     };
 
-    $scope.showAlert = function(titulo, conteudo, action) {
-        var alertPopup = $ionicPopup.alert({
-            title: titulo,
-            template: conteudo
-        });
-        
-        /*alertPopup.then(function(res) {
-            if(action == 'redirect'){
-                console.log('REDIRECT AGORA');    
-            }
-        });*/
-    };
+   
 });

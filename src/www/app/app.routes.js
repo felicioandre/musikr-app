@@ -15,7 +15,7 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
         controller: 'AppCtrl'
     })
 
-   
+    /* Login / Criar Conta / Recuperar Senha */
 
     .state('app.login', {
         url: '/login',
@@ -23,9 +23,6 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
             'menuContent': {
                 templateUrl: 'app/login/login.html',
                 controller: 'LoginCtrl'
-            },
-            'fabContent': {
-                template: ''
             }
         }
     })
@@ -36,9 +33,6 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
             'menuContent': {
                 templateUrl: 'app/criar-conta/criar-conta.html',
                 controller: 'CriarContaCtrl'
-            },
-            'fabContent': {
-                template: ''
             }
         }
     })
@@ -49,12 +43,64 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
             'menuContent': {
                 templateUrl: 'app/esqueci-senha/esqueci-senha.html',
                 controller: 'EsqueciSenhaCtrl'
-            },
-            'fabContent': {
-                template: ''
             }
         }
-    });
+    })
+
+    .state('app.recuperarsenha', {
+        url: '/recuperar-senha',
+        views: {
+            'menuContent': {
+                templateUrl: 'app/esqueci-senha/recuperar-senha.html',
+                controller: 'RecuperarSenhaCtrl'
+            }
+        }
+    })
+
+    /* Primeiro Acesso */
+
+    .state('app.primeiroacesso-step01', {
+        url: '/primeiro-acesso',
+        views: {
+            'menuContent': {
+                templateUrl: 'app/primeiro-acesso/step01.html',
+                controller: 'step01Ctrl'
+            }
+        }
+    })
+
+    .state('app.primeiroacesso-step02', {
+        url: '/primeiro-acesso/step02',
+        views: {
+            'menuContent': {
+                templateUrl: 'app/primeiro-acesso/step02.html',
+                controller: 'step02Ctrl'
+            }
+        }
+    })
+
+    .state('app.primeiroacesso-step03', {
+        url: '/primeiro-acesso/step03',
+        views: {
+            'menuContent': {
+                templateUrl: 'app/primeiro-acesso/step03.html',
+                controller: 'step03Ctrl'
+            }
+        }
+    })
+
+    /* Home */
+
+    .state('app.home', {
+        url: '/home',
+        views: {
+            'menuContent': {
+                templateUrl: 'app/home/home.html',
+                controller: 'HomeCtrl'
+            }
+        }
+    })
+    ;
 
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/app/login');

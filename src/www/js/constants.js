@@ -1,1 +1,0 @@
-const SERVIDOR = 'http://localhost:2741/';
