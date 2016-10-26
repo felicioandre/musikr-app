@@ -1,11 +1,14 @@
 //angular.module('musikrApp.controllers', [])
-app.controller('AppCtrl', function($scope, 
-                                   $ionicModal, 
-                                   $ionicPopover, 
-                                   $timeout, 
+app.controller('AppCtrl', function($scope,
+                                   $ionicModal,
+                                   $ionicPopover,
+                                   $timeout,
                                    $ionicPopup,
                                    $state,
-                                   $ionicViewSwitcher) {
+                                   $ionicViewSwitcher,
+                                   $ionicLoading,
+                                   $http,
+                                   $ionicHistory) {
     // Form data for the login modal
     $scope.loginData = {};
     $scope.isExpanded = false;
@@ -43,11 +46,11 @@ app.controller('AppCtrl', function($scope,
 
         switch (location) {
             case 'left':
-                hasHeaderFabLeft = true;
-                break;
+            hasHeaderFabLeft = true;
+            break;
             case 'right':
-                hasHeaderFabRight = true;
-                break;
+            hasHeaderFabRight = true;
+            break;
         }
 
         $scope.hasHeaderFabLeft = hasHeaderFabLeft;
@@ -90,13 +93,58 @@ app.controller('AppCtrl', function($scope,
         //redirecionamento depois do alert --opcional
         alertPopup.then(function(res) {
             if (!verifyEmpty(action)) {
-                if(verifyEmpty(direction))
+                if (verifyEmpty(direction))
                     direction = 'forward'
                 $ionicViewSwitcher.nextDirection(direction);
                 $state.go(action);
             }
         });
     };
+
+    $scope.logout = function() {
+
+        var confirmPopup = $ionicPopup.confirm({
+            title: "Você tem certeza que deseja sair?",
+            template: "Alterações não salvas serão perdidas."
+        });
+        confirmPopup.then(function(res) {
+           if(res) {
+             window.localStorage.clear();
+             $ionicViewSwitcher.nextDirection('back');
+             $state.go('app.login');
+         }
+     });
+    }
+
+    $scope.skipStep = function(pagina) {
+        $ionicLoading.show({
+            content: 'Carregando...',
+            animation: 'fade-in',
+            showBackdrop: true,
+            maxWidth: 200,
+            showDelay: 0
+        });
+
+        $http({
+            method: "POST",
+            url: SERVIDOR + "primeiro-acesso/avancar-step",
+            headers: {
+                "Authorization": "Bearer " + window.localStorage.getItem("token")
+            }
+        })
+        .success(function(data) {
+            $ionicLoading.hide();
+            $ionicHistory.nextViewOptions({
+                disableBack: true
+            });
+            $state.go(pagina);
+                //alert(JSON.stringify(data));
+            })
+        .error(function(data, statusCode) {
+            $ionicLoading.hide();
+            $scope.showAlert('Ocorreu um erro inesperado!', 'Por favor, tente novamente mais tarde.')
+        });
+    }
 
 });
 
@@ -112,8 +160,8 @@ function parseErrors(response) {
 }
 
 //Verifica se string esta vazia
-function verifyEmpty(string){
-    if(string != '' && string != null && string != undefined)
+function verifyEmpty(string) {
+    if (string != '' && string != null && string != undefined)
         return false;
     return true;
 };

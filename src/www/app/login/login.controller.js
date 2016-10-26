@@ -48,6 +48,10 @@ app.controller('LoginCtrl', function($scope,
 
     $scope.fundoLogin = "images/login" + (Math.floor(Math.random() * 10) + 1) + ".jpg";
 
+    $timeout(function(){
+        $scope.showFields = true;
+    }, 500);
+
     $scope.dados = {};
     $scope.dados.email = null;
     $scope.dados.senha = null;
@@ -102,7 +106,7 @@ app.controller('LoginCtrl', function($scope,
                 $ionicLoading.hide();
                 if (statusCode == 400) {
                     if (data.ModelState) {
-                        $scope.showAlert('Ocorreu um erro!', parseErrors(data));
+                        $scope.showAlert('Alguns erros foram encontrados!', parseErrors(data));
                     }
                 } else {
                     $scope.showAlert('Ocorreu um erro inesperado!', 'Por favor, tente novamente mais tarde.')

@@ -1,6 +1,6 @@
 <ion-view>
   <ion-content class="bg-primeiro-acesso step01" has-bouncing="false">
-    <form ng-submit="primeiroacesso-step01()">
+    <form ng-submit="finalizarStep01()">
       <div class="header-signup">
         <div class="content first-access-header">
           <div class="app-icon">
@@ -12,22 +12,21 @@
         </div>
       </div>
       <div class="foto-perfil first-access-content padding-left padding-right padding-bottom">
-        <div class="foto sem-foto">
+        <div class="foto" ng-style="{'background-image':'url(' + FotoPerfil + ')'}">
         </div>
-        <button type="button" class="button button-balanced button-full button-light">Escolher Foto de Perfil 
+        <button type="button" ng-click="showActionSheet()" class="button button-balanced button-full button-light">Escolher Foto de Perfil 
           <i class="ion-camera">
           </i>
-          <input type="hidden" ng-value="" ng-model="dados.foto">
         </button>
         <div class="list">
-          <ion-md-input placeholder="Aniversário" highlight-color="balanced" type="date" ng-model="dados.dataNascimento">
+          <ion-md-input placeholder="Aniversário" highlight-color="balanced" type="date" ng-model="dados.DataNascimento">
           </ion-md-input>
           <div class="item item-divider item-title"> 
             Sexo
           </div>
           <ion-radio ng-repeat="item in listaSexo"
                      ng-value="item.value"
-                     ng-model="dados.sexo">
+                     ng-model="dados.Sexo">
             {{ item.text }}
           </ion-radio>
           <div class="padding-top">

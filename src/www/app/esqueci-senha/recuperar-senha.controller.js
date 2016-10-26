@@ -7,7 +7,8 @@ app.controller('RecuperarSenhaCtrl', function($scope,
     $ionicSideMenuDelegate,
     $http,
     $ionicLoading,
-    $ionicViewSwitcher) {
+    $ionicViewSwitcher,
+    $ionicHistory) {
 
     $scope.fundoLogin = "images/login" + (Math.floor(Math.random() * 10) + 1) + ".jpg";
     
@@ -16,6 +17,10 @@ app.controller('RecuperarSenhaCtrl', function($scope,
     $scope.$parent.clearFabs();
 
     ionicMaterialInk.displayEffect();
+
+    $ionicHistory.nextViewOptions({
+        disableBack: true
+    });
     
     $scope.dados = {};
     $scope.dados.senha = null;

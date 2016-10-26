@@ -1,6 +1,6 @@
 <ion-view>
   <ion-content class="bg-primeiro-acesso step02" has-bouncing="false">
-    <form ng-submit="primeiroacesso-step02()">
+    <form ng-submit="finalizarStep02()" ng-show="mostraTela">
       <div class="header-signup">
         <div class="content first-access-header">
           <div class="app-icon">
@@ -20,15 +20,15 @@
           </div>
           <ion-checkbox ng-repeat="item in listaGenero"
                      ng-value="item.value"
-                     ng-model="item.checked"
+                     ng-model="checkItems[item.value]"
                      ng-checked="item.checked"
-                     ng-class="{selected: item.checked}">
+                     ng-class="{selected: checkItems[item.value]}">
             {{ item.text }}
           </ion-checkbox>
           <div class="padding-top">
             <button type="submit" class="button button-full button-positive">Continuar
             </button>
-            <button type="button" ng-click="skipStep()" class="button button-full button-light button-clear">Não quero fazer isso agora
+            <button type="button" ng-click="skipStep('app.primeiroacesso-step03')" class="button button-full button-light button-clear">Pular etapa
             </button>
           </div>
         </div>

@@ -53,7 +53,7 @@ app.controller('CriarContaCtrl', function($scope,
                 $ionicLoading.hide();
                 if (statusCode == 400) {
                     if (data.ModelState) {
-                        $scope.showAlert('Ocorreu um erro inesperado!', parseErrors(data));
+                        $scope.showAlert('Alguns erros foram encontrados!', parseErrors(data));
                     }
                 } else {
                     $scope.showAlert('Ocorreu um erro inesperado!', 'Por favor, tente novamente mais tarde.')
