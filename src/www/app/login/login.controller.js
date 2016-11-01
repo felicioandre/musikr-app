@@ -2,7 +2,7 @@ app.controller('LoginCtrl', function($scope,
     $timeout,
     $state,
     $stateParams,
-    ionicMaterialInk,
+    //ionicMaterialInk,
     $ionicSideMenuDelegate,
     $http,
     $ionicLoading,
@@ -12,6 +12,8 @@ app.controller('LoginCtrl', function($scope,
     $ionicHistory.nextViewOptions({
         disableBack: true
     });
+
+    $ionicSideMenuDelegate.canDragContent(false);
     
     if (window.localStorage.getItem("token") != null) {
         $http({
@@ -40,11 +42,11 @@ app.controller('LoginCtrl', function($scope,
 
     }
 
-    $ionicSideMenuDelegate.canDragContent(false)
+    /*$ionicSideMenuDelegate.canDragContent(false)
 
     $scope.$parent.clearFabs();
 
-    ionicMaterialInk.displayEffect();
+    ionicMaterialInk.displayEffect();*/
 
     $scope.fundoLogin = "images/login" + (Math.floor(Math.random() * 10) + 1) + ".jpg";
 

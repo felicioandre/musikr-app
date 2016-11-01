@@ -3,19 +3,12 @@ app.controller('step01Ctrl', function($scope,
     $state,
     $ionicPopup,
     $stateParams,
-    ionicMaterialInk,
     $ionicSideMenuDelegate,
     $http,
     $ionicLoading,
     $ionicActionSheet) {
 
-    $ionicSideMenuDelegate.canDragContent(false)
-
-    $scope.$parent.clearFabs();
-
-
-    ionicMaterialInk.displayEffect();
-
+    $ionicSideMenuDelegate.canDragContent(false);
 
     $scope.listaSexo = [{
         text: "Masculino",

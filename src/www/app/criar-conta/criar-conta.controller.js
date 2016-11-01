@@ -1,7 +1,6 @@
 app.controller('CriarContaCtrl', function($scope,
     $stateParams,
     $ionicPopup,
-    ionicMaterialInk,
     $ionicSideMenuDelegate,
     $http,
     $ionicLoading,
@@ -10,11 +9,6 @@ app.controller('CriarContaCtrl', function($scope,
     $scope.fundoLogin = "images/login" + (Math.floor(Math.random() * 10) + 1) + ".jpg";
 
     $ionicSideMenuDelegate.canDragContent(false)
-
-    $scope.$parent.clearFabs();
-
-    ionicMaterialInk.displayEffect();
-
 
     $scope.dados = {};
     $scope.dados.nome = null;

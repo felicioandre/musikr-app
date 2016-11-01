@@ -3,15 +3,12 @@ app.controller('step03Ctrl', function($scope,
                                      $state, 
                                      $ionicPopup, 
                                      $stateParams, 
-                                     ionicMaterialInk, 
                                      $ionicSideMenuDelegate, 
                                      $http,
                                      $ionicLoading,
                                      $ionicHistory) {
 
     $ionicSideMenuDelegate.canDragContent(false)
-    $scope.$parent.clearFabs();
-    ionicMaterialInk.displayEffect();
 
     $scope.mostraTela = false;
 

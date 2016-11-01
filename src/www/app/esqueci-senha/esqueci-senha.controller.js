@@ -3,19 +3,13 @@ app.controller('EsqueciSenhaCtrl', function($scope,
     $state,
     $ionicPopup,
     $stateParams,
-    ionicMaterialInk,
     $ionicSideMenuDelegate,
     $http,
     $ionicLoading) {
 
     $scope.fundoLogin = "images/login" + (Math.floor(Math.random() * 10) + 1) + ".jpg";
     
-    $ionicSideMenuDelegate.canDragContent(false)
-
-    $scope.$parent.clearFabs();
-
-    ionicMaterialInk.displayEffect();
-    
+    $ionicSideMenuDelegate.canDragContent(false);    
 
     //$scope.email = 'teste@teste.com';
     $scope.dados = {};
