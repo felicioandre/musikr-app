@@ -86,21 +86,23 @@ app.controller('step01Ctrl', function($scope,
     //upload de foto
     $scope.novaFotoAlbum = function() {
         navigator.camera.getPicture($scope.Success, $scope.Fail, {
-            quality: 70,
+            quality: 50,
             targetWidth: 720,
             targetHeight: 720,
             sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY,
-            destinationType: navigator.camera.DestinationType.FILE_URI
+            destinationType: navigator.camera.DestinationType.FILE_URI,
+            allowEdit: true
         });
     }
 
     $scope.novaFotoCamera = function() {
         navigator.camera.getPicture($scope.Success, $scope.Fail, {
-            quality: 70,
+            quality: 50,
             targetWidth: 720,
             targetHeight: 720,
             sourceType: navigator.camera.PictureSourceType.CAMERA,
-            destinationType: navigator.camera.DestinationType.FILE_URI
+            destinationType: navigator.camera.DestinationType.FILE_URI,
+            allowEdit: true
         });
     }
 

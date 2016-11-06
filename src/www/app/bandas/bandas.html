@@ -1,0 +1,26 @@
+<ion-view view-title="Bandas">
+    <ion-nav-bar class="bar-musikr" ng-class="{expanded: isExpanded, 'has-header-fab-left': hasHeaderFabLeft, 'has-header-fab-right': hasHeaderFabRight}" align-title="center">
+        <ion-nav-buttons side="left">
+          <button class="button button-icon button-clear ion-navicon-round" menu-toggle="left">
+          </button>
+      </ion-nav-buttons>
+  </ion-nav-bar>
+
+  <ion-content class="has-header" ng-show="mostraTela">
+    <h4 class="text-center padding">Selecione um gênero abaixo para ver as bandas relacionadas:</h4>
+
+    <div class="list">
+
+        <a class="item" 
+        ng-repeat="item in listaGenero"
+        ui-sref="app.lista-bandas({id: item.value, nome: item.text})">
+            {{ item.text }}
+        </a>
+
+    </div>
+<div class="padding-bottom text-center">
+    <button class="button button-balanced" ui-sref="app.criar-banda" >Criar uma banda</button>
+    <button class="button button-positive" ui-sref="app.minhas-bandas">Minhas Bandas</button>
+</div>
+</ion-content>
+</ion-view>

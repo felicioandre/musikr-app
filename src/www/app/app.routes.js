@@ -100,7 +100,120 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
             }
         }
     })
-    
+
+    .state('app.publicacao', {
+        url: '/publicacao',
+        abstract: true,
+        views: {
+            'menuContent': {
+                templateUrl: 'app/publicacao/publicacao.html',
+                //controller: 'PublicacaoCtrl'
+            }
+        }
+    })
+
+    .state('app.publicacao.texto', {
+        url: '/texto',
+        views: {
+            'tabPublicacaoTexto': {
+                templateUrl: 'app/publicacao/texto.html',
+                controller: 'TextoCtrl'
+            }
+        }
+    })
+
+    .state('app.publicacao.imagem', {
+        url: '/imagem',
+        views: {
+            'tabPublicacaoImagem': {
+                templateUrl: 'app/publicacao/imagem.html',
+                controller: 'ImagemCtrl'
+            }
+        }
+    })
+
+    .state('app.publicacao.video', {
+        url: '/video',
+        views: {
+            'tabPublicacaoVideo': {
+                templateUrl: 'app/publicacao/video.html',
+                controller: 'VideoCtrl'
+            }
+        }
+    })
+
+    /* Bandas */
+
+    .state('app.bandas', {
+        url: '/bandas',
+        views: {
+            'menuContent': {
+                templateUrl: 'app/bandas/bandas.html',
+                controller: 'BandasCtrl'
+            }
+        }
+    })
+
+    .state('app.lista-bandas', {
+        url: '/bandas/lista',
+        views: {
+            'menuContent': {
+                templateUrl: 'app/bandas/lista.html',
+                controller: 'ListaBandasCtrl'
+            }
+        },
+        params: {
+            id: null,
+            nome: null
+        }
+    })
+
+    .state('app.criar-banda', {
+        url: '/bandas/criar',
+        views: {
+            'menuContent': {
+                templateUrl: 'app/bandas/criar-banda.html',
+                controller: 'CriarBandaCtrl'
+            }
+        }
+    })
+
+    .state('app.minhas-bandas', {
+        url: '/bandas/minhas-bandas',
+        views: {
+            'menuContent': {
+                templateUrl: 'app/bandas/minhas-bandas.html',
+                controller: 'MinhasBandasCtrl'
+            }
+        }
+    })
+
+    .state('app.perfil-banda', {
+        url: '/bandas/perfil',
+        views: {
+            'menuContent': {
+                templateUrl: 'app/bandas/perfil.html',
+                controller: 'PerfilBandaCtrl'
+            }
+        },
+        params: {
+            id: null
+        }
+    })
+
+    .state('app.perfil-pessoa', {
+        url: '/pessoas/perfil',
+        views: {
+            'menuContent': {
+                templateUrl: 'app/pessoas/perfil.html',
+                controller: 'PerfilPessoaCtrl'
+            }
+        },
+        params: {
+            id: null
+        }
+    })
+
     ;
 
     $urlRouterProvider.otherwise('/app/login');

@@ -3,26 +3,31 @@
         <ion-nav-view name="menuContent" ng-class="{expanded: isExpanded}" ></ion-nav-view>
     </ion-side-menu-content>
     <ion-side-menu side="left">
-        <ion-header-bar class="dark-bg expanded">
-            <span class="avatar" style="background: url('images/musikr-icon.png'); background-size: cover;"></span>
-            <h2>Musikr</h2>
-        </ion-header-bar>
-        <ion-content class="stable-bg has-expanded-header">
-            <ion-list>
-                <ion-item nav-clear menu-close ui-sref="app.activity">
-                    Activity
+        <ion-header class="user-info">
+            <span class="avatar">
+                <span class="foto" ng-style="{'background-image':'url(' + fotoUsuario +')'}"></span>
+            </span>
+            <h2>{{nomeUsuario}}</h2>
+        </ion-header>
+        <ion-content class="menu-app">
+            <ion-list class="menu-list">
+                <ion-item  menu-close ui-sref="app.home" ui-sref-active="active">
+                    <i class="ion-document"></i> Publicações
                 </ion-item>
-                <ion-item nav-clear menu-close ui-sref="app.login">
-                    Login
+                <ion-item nav-clear menu-close ui-sref="app.bandas" ui-sref-active="active">
+                    <i class="ion-ios-musical-notes"></i> Bandas
                 </ion-item>
                 <ion-item nav-clear menu-close ui-sref="app.profile">
-                    Profile
+                    <i class="ion-mic-c"></i> Vagas
                 </ion-item>
                 <ion-item nav-clear menu-close ui-sref="app.friends">
-                    Friends
+                    <i class="ion-person-stalker"></i> Pessoas
+                </ion-item>
+                <ion-item nav-clear menu-close ui-sref="app.perfil">
+                    <i class="ion-person"></i> Meu Perfil
                 </ion-item>
                 <ion-item nav-clear menu-close ng-click="logout()">
-                    Sair
+                    <i class="ion-log-out"></i> Sair
                 </ion-item>
             </ion-list>
         </ion-content>

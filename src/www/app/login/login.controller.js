@@ -24,6 +24,8 @@ app.controller('LoginCtrl', function($scope,
                 }
             })
             .success(function(data) {
+                $scope.aplicarInfoUsuario();
+
                 if(data.step == 1){
                     $state.go("app.primeiroacesso-step01");    
                 } else if(data.step == 2){
@@ -82,9 +84,11 @@ app.controller('LoginCtrl', function($scope,
                     window.localStorage.setItem("token", data.token.access_token);
                     window.localStorage.setItem("nomeUsuario", data.token.userName);
                     window.localStorage.setItem("idUsuario", data.token.idUser);
+                    window.localStorage.setItem("fotoPerfil", data.token.fotoPerfil);
                     //console.log(window.localStorage.getItem("nomeUsuario"));
                     //window.localStorage.setItem("expireDate", data.)
                     $ionicViewSwitcher.nextDirection("forward");
+                    $scope.aplicarInfoUsuario();
                     if(data.trocaSenha == 1){
                         $state.go("app.recuperarsenha");
                     } else if(data.step == 1){

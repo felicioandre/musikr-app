@@ -1,0 +1,12 @@
+<ion-view view-title="Publicar um Texto">
+<ion-content class="padding bg-view">
+ <form ng-submit="enviarPublicacao()" class="page-form">
+ <label for="texto"><h4>Digite a sua publicação</h4></label>
+
+ <ion-item>
+   <textarea rows="1" expanding-textarea ng-model="publicacao.texto" id="texto" class="textarea-autoheight"></textarea>
+ </ion-item>
+ <button type="submit" class="button button-full button-balanced">Publicar agora</button>
+</form>
+</ion-content>
+</ion-view>

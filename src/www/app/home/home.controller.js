@@ -9,7 +9,11 @@ app.controller('HomeCtrl', function($scope,
 
     $ionicSideMenuDelegate.canDragContent(false)
 
+    $scope.aplicarInfoUsuario();    
     
-    $scope.algumaVar = "Feed de Notícias"
+    $scope.fazerPublicacao = function(){
+        $ionicViewSwitcher.nextDirection('forward');
+        $state.go('app.publicacao.texto');
+    }
    
 });

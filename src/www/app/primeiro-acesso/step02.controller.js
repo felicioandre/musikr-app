@@ -1,9 +1,9 @@
-app.controller('step02Ctrl', function($scope, 
-                                      $timeout, 
-                                      $state, 
-                                      $ionicPopup, 
-                                      $stateParams, 
-                                      $ionicSideMenuDelegate, 
+app.controller('step02Ctrl', function ($scope,
+                                      $timeout,
+                                      $state,
+                                      $ionicPopup,
+                                      $stateParams,
+                                      $ionicSideMenuDelegate,
                                       $http,
                                       $ionicLoading) {
 
@@ -25,20 +25,20 @@ app.controller('step02Ctrl', function($scope,
         headers: {
             "Authorization": "Bearer " + window.localStorage.getItem("token")
         }
-    }).success(function(data) {
+    }).success(function (data) {
         $ionicLoading.hide();
         $scope.listaGenero = data;
         $scope.mostraTela = true;
-    }).error(function(data, statusCode) {
+    }).error(function (data, statusCode) {
         $scope.showAlert('Ocorreu um erro inesperado!', 'Por favor, tente novamente mais tarde.')
     });
 
     $scope.dados = {};
     //$scope.dados.GeneroMusical = null;
     $scope.dados.GeneroMusical = [];
-    $scope.checkItems = { };
+    $scope.checkItems = {};
 
-    $scope.finalizarStep02 = function() {
+    $scope.finalizarStep02 = function () {
         /*$http.get(SERVIDOR + "account/testemetodo")
         .success(function(data) {
         alert(JSON.stringify(data));
@@ -55,9 +55,9 @@ app.controller('step02Ctrl', function($scope,
         });
 
         //var array = [];
-        for(i in $scope.checkItems) {
+        for (i in $scope.checkItems) {
             console.log($scope.checkItems[i]);
-            if($scope.checkItems[i] == true) {
+            if ($scope.checkItems[i] == true) {
                 //array.push(i);
                 $scope.dados.GeneroMusical.push(i);
             }
@@ -66,19 +66,19 @@ app.controller('step02Ctrl', function($scope,
         //$scope.dados.GeneroMusical = array;
 
         $http({
-                method: "POST",
-                url: SERVIDOR + "primeiro-acesso/step02",
-                headers: {
-                    "Authorization": "Bearer " + window.localStorage.getItem("token")
-                },
-                data: $scope.dados
-            })
-            .success(function(data) {
+            method: "POST",
+            url: SERVIDOR + "primeiro-acesso/step02",
+            headers: {
+                "Authorization": "Bearer " + window.localStorage.getItem("token")
+            },
+            data: $scope.dados
+        })
+            .success(function (data) {
                 $ionicLoading.hide();
                 $state.go("app.primeiroacesso-step03");
                 //alert(JSON.stringify(data));
             })
-            .error(function(data, statusCode) {
+            .error(function (data, statusCode) {
                 $ionicLoading.hide();
                 if (statusCode == 400) {
                     if (data.ModelState) {
