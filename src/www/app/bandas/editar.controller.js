@@ -1,4 +1,4 @@
-app.controller('CriarBandaCtrl', function ($scope,
+app.controller('EditarBandaCtrl', function ($scope,
     $timeout,
     $state,
     $stateParams,
@@ -13,24 +13,45 @@ app.controller('CriarBandaCtrl', function ($scope,
 
     $scope.showLoading();
 
+    //$http({
+    //    method: "GET",
+    //    url: SERVIDOR + "genero-musical/lista-genero-musical",
+    //    headers: {
+    //        "Authorization": "Bearer " + window.localStorage.getItem("token")
+    //    }
+    //}).success(function (data) {
+    //    //$ionicLoading.hide();
+    //    $scope.listaGenero = data;
+    //    //$scope.mostraTela = true;
+    //}).error(function (data, statusCode) {
+    //    $scope.showAlert('Ocorreu um erro inesperado!', 'Por favor, tente novamente mais tarde.')
+    //});
+
+    $scope.dados = {};
+
     $http({
         method: "GET",
-        url: SERVIDOR + "genero-musical/lista-genero-musical",
+        //url: SERVIDOR + "banda/editar/" + $stateParams.id,
+        url: SERVIDOR + "banda/editar/13",
         headers: {
             "Authorization": "Bearer " + window.localStorage.getItem("token")
         }
     }).success(function (data) {
-        $ionicLoading.hide();
-        $scope.listaGenero = data;
+        
+        //$scope.dados = data;
+        
+        $scope.listaGenero = data.generosMusicais;
+        $scope.dados.nomeBanda = data.nome;
+        $scope.dados.CaminhoLogo = data.logotipo;
+        $scope.dados.CaminhoFoto = data.foto;
+        console.log(data);
         $scope.mostraTela = true;
+        $ionicLoading.hide();
     }).error(function (data, statusCode) {
         $scope.showAlert('Ocorreu um erro inesperado!', 'Por favor, tente novamente mais tarde.')
     });
-
-
-    $scope.dados = {};
+    
     //$scope.dados.GeneroMusical = null;
-    $scope.dados.nomeBanda = null;
     $scope.dados.FotoBase64 = null;
     $scope.dados.LogoBase64 = null;
     $scope.dados.GeneroMusical = [];
@@ -50,7 +71,8 @@ app.controller('CriarBandaCtrl', function ($scope,
 
         $http({
             method: "POST",
-            url: SERVIDOR + "banda/criar",
+            //url: SERVIDOR + "banda/criar/" + $stateParams.id,
+            url: SERVIDOR + "banda/criar/13",
             headers: {
                 "Authorization": "Bearer " + window.localStorage.getItem("token")
             },
@@ -58,7 +80,7 @@ app.controller('CriarBandaCtrl', function ($scope,
         })
             .success(function (data) {
                 $ionicLoading.hide();
-                $state.go("app.minhas-bandas");
+                $scope.showAlert('OK!', 'Sua banda foi alterada com sucesso!', 'app.minhas-bandas');
             })
             .error(function (data, statusCode) {
                 $ionicLoading.hide();
@@ -133,6 +155,7 @@ app.controller('CriarBandaCtrl', function ($scope,
         $ionicLoading.show();
         //console.log(img);
         //$scope.uploadPhoto(img);
+        $scope.dados.CaminhoLogo = null;
         $scope.dados.LogoBase64 = img;
         $ionicLoading.hide();
         console.log($scope.dados.LogoBase64);
@@ -142,6 +165,7 @@ app.controller('CriarBandaCtrl', function ($scope,
         $ionicLoading.show();
         //console.log(img);
         //$scope.uploadPhoto(img);
+        $scope.dados.CaminhoFoto = null;
         $scope.dados.FotoBase64 = img;
         $ionicLoading.hide();
         console.log($scope.dados.FotoBase64);

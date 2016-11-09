@@ -1,36 +1,38 @@
-<ion-view view-title="Nome da Banda">
+<ion-view view-title="{{NomeBanda}}">
     <ion-nav-bar class="bar-musikr" ng-class="{expanded: isExpanded, 'has-header-fab-left': hasHeaderFabLeft, 'has-header-fab-right': hasHeaderFabRight}" align-title="center">
         <ion-nav-buttons side="left">
             <button class="button button-icon button-clear ion-arrow-left-c" ng-click="voltarPagina()"></button>
         </ion-nav-buttons>
+        <ion-nav-buttons side="right">
+            <button class="button button-icon button-clear ion-ios-more" ng-click="openPopover($event)" ng-if="dadosBanda.isUserAdmin && mostraTela"></button>
+        </ion-nav-buttons>
     </ion-nav-bar>
 
-    <ion-content class="has-header padding perfil perfil-banda">
-        <div class="foto">
-            <img src="cover.jpg" alt="logotipo">
+    <ion-content class="has-header padding perfil perfil-banda" ng-show="mostraTela">
+        <div class="info-perfil" ng-style="{'background-image':'url(' + dadosBanda.FotoBanda + ')'}">
+            <div class="info-content">
+                <div class="foto-perfil"><div ng-style="{'background-image':'url(' + dadosBanda.LogoBanda + ')'}"></div></div>
+                <h1 class="nome-perfil">{{NomeBanda}}</h1>
+                <h5 class="numero-followers">{{dadosBanda.TotalSeguidores}} {{(dadosBanda.TotalSeguidores > 1 ? "seguidores" : "seguidor")}}</h5>
+                <div class="acoes-perfil">
+                    <button type="button" class="button button-balanced">Seguir</button>
+                </div>
+            </div>
         </div>
-        <h1 class="nome text-center">Nome da Banda</h1>
-        <h4 class="numero-followers text-center">800 seguidores</h4>
-        <div class="text-center acoes-perfil">
-            <button type="button" class="button button-balanced">Seguir</button>
-        </div>
+       
         <div class="lista-integrantes lista-perfil">
             <h4>Integrantes</h4>
             <div class="list">
 
-                <div class="item item-thumbnail-left" ui-sref="app.perfil-pessoa">
-                    <img src="cover.jpg" alt="Foto de Perfil">
-                    <h2>Nome do Músico</h2>
-                    <p>Cantor - Guitarra - Gaita - Baixo</p>
+                <div class="item item-thumbnail-left" ui-sref="app.perfil-pessoa" ng-repeat="item in dadosBanda.Integrantes">
+                    <img src="{{item.FotoIntegrante}}" alt="Foto de Perfil">
+                    <h2>{{item.NomeIntegrante}}</h2>
+                    <p class="integrante-instrumentos">
+                        <span ng-if="!item.IsCantor">Cantor</span><span ng-repeat="instrumento in item.Instrumentos">{{instrumento}}</span>
+                    </p>
                     <p><small>ver perfil</small></p>
                 </div>
 
-                <div class="item item-thumbnail-left" ui-sref="app.perfil-pessoa">
-                    <img src="cover.jpg" alt="Foto de Perfil">
-                    <h2>Nome do Músico</h2>
-                    <p>Cantor - Guitarra - Gaita - Baixo</p>
-                    <p><small>ver perfil</small></p>
-                </div>
             </div>
         </div>
             <div class="lista-publicacao lista-perfil">

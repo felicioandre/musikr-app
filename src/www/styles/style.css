@@ -60,34 +60,34 @@ background: linear-gradient(to bottom, rgba(0,2,34,1) 56%,rgba(52,52,52,1) 100%)
     top: 20px;
 }
 
-    .menu .user-info h2 {
-        font-size: 18px;
-        text-align: center;
-        margin: 0;
-        font-weight: 300;
-        color: #f2f2f2;
-    }
+.menu .user-info h2 {
+    font-size: 18px;
+    text-align: center;
+    margin: 0;
+    font-weight: 300;
+    color: #f2f2f2;
+}
 
-    .menu .user-info .avatar {
-        display: block;
-        width: 82px;
-        height: 82px;
-        margin: 15px auto 5px;
-        border-radius: 50%;
-        border: 2px solid rgba(255,255,255,.5);
-        padding: 7px;
-    }
+.menu .user-info .avatar {
+    display: block;
+    width: 82px;
+    height: 82px;
+    margin: 15px auto 5px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,.5);
+    padding: 7px;
+}
 
-    .menu .user-info .foto {
-        display: block;
-        width: 100%;
-        height: 100%;
-        border-radius: 50%;
-        border: 4px solid rgba(255,255,255,1);
-        background-position: center center;
-        background-size: cover;
-        background-repeat: none;
-    }
+.menu .user-info .foto {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 4px solid rgba(255,255,255,1);
+    background-position: center center;
+    background-size: cover;
+    background-repeat: none;
+}
 
 .menu .menu-app {
     top: 150px;
@@ -136,6 +136,20 @@ background: linear-gradient(to bottom, rgba(0,2,34,1) 56%,rgba(52,52,52,1) 100%)
             left: 0;
             background-color: #ff7200;
         }
+
+/* Popover Padrao Ionic
+==================================*/
+
+.popover {
+    height: auto !important;
+}
+.popover ion-header-bar {
+    position: relative;
+}
+.popover ion-content {
+    top: 0;
+    position: relative;
+}
 
 /* Estrutura Login e Cadastro
 ==================================*/
@@ -471,7 +485,7 @@ html,
 /* Tela de criar publicacao */
 
 .tabs-striped.tabs-publicacao .tabs,
-.platform-ios .tabs-striped.tabs-publicacao .tabs{
+.platform-ios .tabs-striped.tabs-publicacao .tabs {
     top: 0 !important;
 }
 
@@ -513,34 +527,94 @@ html,
 /* Tela de criar banda */
 
 .page-form .foto-banda img,
-.page-form .logo-banda img{
-    display:block;
-    width:50%;
-    max-width:240px;
-    margin:0 auto 20px;
+.page-form .logo-banda img {
+    display: block;
+    width: 50%;
+    max-width: 240px;
+    margin: 0 auto 20px;
 }
 
-.page-form .foto-banda img{
-    width:70%;
-    max-width:300px;
+.page-form .foto-banda img {
+    width: 70%;
+    max-width: 300px;
 }
 
 /* Tela de Perfil (Usuario e Banda) */
 
-.acoes-perfil{
-    margin-bottom:20px;
+.lista-perfil {
+    margin-bottom: 20px;
 }
 
-.lista-perfil
-{
-    margin-bottom:20px;
+    .lista-perfil h4 {
+        margin: 0;
+    }
+
+        .lista-perfil h4 + .list {
+            margin-top: 10px;
+        }
+
+.info-perfil {
+    margin: -10px -10px 15px;
+    position: relative;
+    background-size: cover;
+    background-position: center center;
+    text-align: center;
+    padding: 25px 15px;
 }
 
-.lista-perfil h4
-{
-    margin:0;
-}
+    .info-perfil:before {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        content: "";
+        right: 0;
+        background-color: rgba(0,0,0,.7);
+        z-index: 30;
+    }
 
-.lista-perfil h4 + .list{
-    margin-top:10px;
+    .info-perfil .info-content {
+        position: relative;
+        z-index: 50;
+    }
+
+    .info-perfil .foto-perfil {
+        border-radius: 50%;
+        width: 100px;
+        height: 100px;
+        margin: 0 auto 10px;
+        border: 4px solid #FFF;
+        padding: 2px;
+    }
+
+        .info-perfil .foto-perfil > div {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            border-radius: 50%;
+        }
+
+    .info-perfil .nome-perfil {
+        margin: 0;
+        font-weight: 300;
+        color: #FFF;
+        text-shadow: 2px 1px 1px #000;
+    }
+
+    .info-perfil .numero-followers {
+        margin: 0 0 10px;
+        font-weight: 300;
+        color: #FFF;
+    }
+
+    .info-perfil .acoes-perfil .button {
+        padding: 0px 15px 0px;
+        min-width: 28px;
+        min-height: 28px;
+        font-size: 12px;
+        line-height: 26px;
+    }
+
+.lista-integrantes .integrante-instrumentos span + span:before{
+    content:" - "
 }

@@ -172,9 +172,22 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
         url: '/bandas/criar',
         views: {
             'menuContent': {
-                templateUrl: 'app/bandas/criar-banda.html',
+                templateUrl: 'app/bandas/criar.html',
                 controller: 'CriarBandaCtrl'
             }
+        }
+    })
+
+    .state('app.editar-banda', {
+        url: '/bandas/editar',
+        views: {
+            'menuContent': {
+                templateUrl: 'app/bandas/editar.html',
+                controller: 'EditarBandaCtrl'
+            }
+        },
+        params: {
+            id: null
         }
     })
 
@@ -197,7 +210,8 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
             }
         },
         params: {
-            id: null
+            id: null,
+            nome: null
         }
     })
 
@@ -210,7 +224,8 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
             }
         },
         params: {
-            id: null
+            id: null,
+            nome: null
         }
     })
 

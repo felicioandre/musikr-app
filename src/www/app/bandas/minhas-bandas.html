@@ -8,7 +8,7 @@
     <ion-content class="has-header padding" ng-show="mostraTela">
         <div class="lista-bandas">
             <div class="list" ng-repeat="item in listaBandas">
-                <a class="item item-thumbnail-left" ui-sref="app.perfil-banda({{item.id}})">
+                <a class="item item-thumbnail-left" ui-sref="app.perfil-banda({id: item.id, nome: item.nome})">
                     <img src="{{ item.logotipo }}" alt="logotipo">
                     <h2>{{ item.nome }}</h2>
                     <p>Criada em {{ item.criadoEm }}</p>
