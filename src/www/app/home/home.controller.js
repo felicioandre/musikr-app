@@ -10,7 +10,7 @@ app.controller('HomeCtrl', function ($scope,
     $ionicSideMenuDelegate.canDragContent(false)
 
     $scope.aplicarInfoUsuario();
-    
+
     $scope.fazerPublicacao = function () {
         $ionicViewSwitcher.nextDirection('forward');
         $state.go('app.publicacao.texto');
@@ -35,5 +35,12 @@ app.controller('HomeCtrl', function ($scope,
         $scope.showAlert('Ocorreu um erro inesperado!', 'Por favor, tente novamente mais tarde.')
     });
 
-
+    $scope.verPerfil = function (perfilId, ehBanda, nomePerfil) {
+        if (ehBanda) {
+            $state.go('app.perfil-banda', { id: perfilId, nome: nomePerfil });
+        }
+        else {
+            $state.go('app.perfil-pessoa', { id: perfilId, nome: nomePerfil, menu: false });
+        }
+    }
 });

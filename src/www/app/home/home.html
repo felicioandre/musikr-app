@@ -8,11 +8,11 @@
         <div class="">
             <button class="button button-royal icon-right ion-ios-paper button-full" ng-click="fazerPublicacao()">Fazer publicação</button>
         </div>
-        
+
         <div class="lista-publicacao lista-publicacao-perfil lista-perfil" ng-if="listaPublicacao.length > 0">
             <div class="list card" ng-repeat="publicacao in listaPublicacao">
 
-                <div class="item item-avatar">
+                <div class="item item-avatar" ng-click="verPerfil(publicacao.IdPerfil, publicacao.isBanda, publicacao.NomePerfil)">
                     <div class="foto" style="background-image: url({{publicacao.FotoPerfil}})"></div>
                     <h2>{{publicacao.NomePerfil}}</h2>
                     <p>{{publicacao.PublicacaoCriadoEm | date:'dd/MM/yyyy'}} às {{publicacao.PublicacaoCriadoEm | date:'HH:mm'}}</p>
