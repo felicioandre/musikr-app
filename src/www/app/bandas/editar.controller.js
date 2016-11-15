@@ -13,26 +13,12 @@ app.controller('EditarBandaCtrl', function ($scope,
 
     $scope.showLoading();
 
-    //$http({
-    //    method: "GET",
-    //    url: SERVIDOR + "genero-musical/lista-genero-musical",
-    //    headers: {
-    //        "Authorization": "Bearer " + window.localStorage.getItem("token")
-    //    }
-    //}).success(function (data) {
-    //    //$ionicLoading.hide();
-    //    $scope.listaGenero = data;
-    //    //$scope.mostraTela = true;
-    //}).error(function (data, statusCode) {
-    //    $scope.showAlert('Ocorreu um erro inesperado!', 'Por favor, tente novamente mais tarde.')
-    //});
-
     $scope.dados = {};
 
     $http({
         method: "GET",
-        //url: SERVIDOR + "banda/editar/" + $stateParams.id,
-        url: SERVIDOR + "banda/editar/13",
+        url: SERVIDOR + "banda/editar/" + $stateParams.id,
+        //url: SERVIDOR + "banda/editar/13",
         headers: {
             "Authorization": "Bearer " + window.localStorage.getItem("token")
         }
@@ -44,7 +30,7 @@ app.controller('EditarBandaCtrl', function ($scope,
         $scope.dados.nomeBanda = data.nome;
         $scope.dados.CaminhoLogo = data.logotipo;
         $scope.dados.CaminhoFoto = data.foto;
-        console.log(data);
+        //console.log(data);
         $scope.mostraTela = true;
         $ionicLoading.hide();
     }).error(function (data, statusCode) {
@@ -54,13 +40,13 @@ app.controller('EditarBandaCtrl', function ($scope,
     //$scope.dados.GeneroMusical = null;
     $scope.dados.FotoBase64 = null;
     $scope.dados.LogoBase64 = null;
-    $scope.dados.GeneroMusical = [];
     $scope.checkItemsGeneroMusical = {};
 
     $scope.criarBanda = function () {
 
         $scope.showLoading();
 
+        $scope.dados.GeneroMusical = [];
         for (i in $scope.checkItemsGeneroMusical) {
             //console.log($scope.checkItems[i]);
             if ($scope.checkItemsGeneroMusical[i] == true) {
@@ -71,8 +57,8 @@ app.controller('EditarBandaCtrl', function ($scope,
 
         $http({
             method: "POST",
-            //url: SERVIDOR + "banda/criar/" + $stateParams.id,
-            url: SERVIDOR + "banda/criar/13",
+            url: SERVIDOR + "banda/criar/" + $stateParams.id,
+            //url: SERVIDOR + "banda/criar/13",
             headers: {
                 "Authorization": "Bearer " + window.localStorage.getItem("token")
             },
@@ -95,6 +81,26 @@ app.controller('EditarBandaCtrl', function ($scope,
 
     }
 
+    $scope.escolherLogotipo = function () {
+        navigator.camera.getPicture($scope.SuccessLogo, $scope.Fail, {
+            quality: 50,
+            targetWidth: 720,
+            targetHeight: 720,
+            sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY,
+            destinationType: navigator.camera.DestinationType.DATA_URL,
+            allowEdit: true
+        });
+    }
+
+    $scope.SuccessLogo = function (img) {
+        $ionicLoading.show();
+        //console.log(img);
+        //$scope.uploadPhoto(img);
+        $scope.dados.CaminhoLogo = null;
+        $scope.dados.LogoBase64 = img;
+        console.log($scope.dados);
+        $ionicLoading.hide();
+    }
 
     $scope.showActionSheet = function () {
 
@@ -118,16 +124,7 @@ app.controller('EditarBandaCtrl', function ($scope,
 
     };
 
-    $scope.escolherLogotipo = function () {
-        navigator.camera.getPicture($scope.SuccessLogo, $scope.Fail, {
-            quality: 50,
-            targetWidth: 720,
-            targetHeight: 720,
-            sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY,
-            destinationType: navigator.camera.DestinationType.DATA_URL,
-            allowEdit: true
-        });
-    }
+    
     
     $scope.novaFotoAlbum = function () {
         navigator.camera.getPicture($scope.SuccessFoto, $scope.Fail, {
@@ -151,15 +148,7 @@ app.controller('EditarBandaCtrl', function ($scope,
         });
     }
 
-    $scope.SuccessLogo = function (img) {
-        $ionicLoading.show();
-        //console.log(img);
-        //$scope.uploadPhoto(img);
-        $scope.dados.CaminhoLogo = null;
-        $scope.dados.LogoBase64 = img;
-        $ionicLoading.hide();
-        console.log($scope.dados.LogoBase64);
-    }
+    
 
     $scope.SuccessFoto = function (img) {
         $ionicLoading.show();
@@ -174,41 +163,4 @@ app.controller('EditarBandaCtrl', function ($scope,
     $scope.Fail = function () {
         $ionicLoading.hide();
     }
-
-    //$scope.uploadPhoto = function (imagemTirada) {
-    //    //var params = new Object();
-    //    //params.value1 = window.localStorage.getItem("idLogado");
-    //    //var dt = new Date();
-    //    //var time = dt.getDate() + "-" + dt.getMonth() + "-" + dt.getFullYear() + "-" + dt.getHours() + "-" + dt.getMinutes() + "-" + dt.getSeconds();
-
-    //    var options = new FileUploadOptions();
-    //    options.fileKey = "file";
-    //    options.fileName = window.localStorage.getItem("idUsuario") + ".jpeg";
-    //    options.mimeType = "image/jpeg";
-    //    //options.params = params;
-    //    options.headers = {
-    //        Authorization: "Bearer " + window.localStorage.getItem("token")
-    //    };
-    //    options.chunkedMode = false;
-    //    options.method = "POST";
-    //    //console.log(options);
-    //    var ft = new FileTransfer();
-    //    ft.upload(
-    //        imagemTirada,
-    //        encodeURI(SERVIDOR + "perfil/alterar-foto"),
-    //        $scope.onFileUploadSuccess,
-    //        $scope.onFileTransferFail,
-    //        options);
-    //}
-
-    //$scope.onFileUploadSuccess = function (linkImagem) {
-    //    console.log(linkImagem.response);
-    //    $scope.FotoPerfil = linkImagem.response;
-    //    $ionicLoading.hide();
-    //}
-
-    //$scope.onFileTransferFail = function () {
-    //    $ionicLoading.hide();
-    //    $scope.showAlert('Ocorreu um erro ao tentar alterar sua foto!', 'Por favor, tente novamente mais tarde.');
-    //}
 });

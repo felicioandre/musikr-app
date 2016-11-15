@@ -4,31 +4,30 @@
             <button class="button button-icon button-clear ion-navicon-round" menu-toggle="left"></button>
         </ion-nav-buttons>
     </ion-nav-bar>
-    <!-- <ion-header-bar align-title="left" class="bar-balanced">
-    <div class="buttons">
-    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
-    </div>
-    <h1 class="title">Title!</h1>
-    </ion-header-bar> -->
-    <ion-content class="has-header padding bg-view">
+    <ion-content class="has-header padding bg-view" ng-show="mostraTela">
         <div class="">
             <button class="button button-royal icon-right ion-ios-paper button-full" ng-click="fazerPublicacao()">Fazer publicação</button>
         </div>
-        <div class="lista-publicacao">
-            <div class="list card">
+        
+        <div class="lista-publicacao lista-publicacao-perfil lista-perfil" ng-if="listaPublicacao.length > 0">
+            <div class="list card" ng-repeat="publicacao in listaPublicacao">
 
                 <div class="item item-avatar">
-                    <div class="foto" style="background-image: url(http://musikr-api.tk/Content/user-default.jpg)"></div>
-                    <h2>Nome do Usuário</h2>
-                    <p>18/10/2016 às 23:15</p>
+                    <div class="foto" style="background-image: url({{publicacao.FotoPerfil}})"></div>
+                    <h2>{{publicacao.NomePerfil}}</h2>
+                    <p>{{publicacao.PublicacaoCriadoEm | date:'dd/MM/yyyy'}} às {{publicacao.PublicacaoCriadoEm | date:'HH:mm'}}</p>
                 </div>
 
                 <div class="item item-body">
                     <div class="message-container">
-                        <p>
-                            This is a "Facebook" styled Card. The header is created from a Thumbnail List item,
-                            the content is from a card-body consisting of an image and paragraph text. The footer
-                            consists of tabs, icons aligned left, within the card-footer.
+                        <div class="image-container" ng-if="publicacao.Imagem != null && publicacao.Imagem != ''">
+                            <img class="full-image" src="{{publicacao.Imagem}}">
+                        </div>
+                        <div class="video-container" ng-if="publicacao.Video != null && publicacao.Video != ''">
+                            <iframe ng-src="{{publicacao.Video | trustUrl}}" frameborder="0" width="560" height="315" allowfullscreen></iframe>
+                        </div>
+                        <p ng-if="publicacao.Texto != null && publicacao.Texto != ''">
+                            {{publicacao.Texto}}
                         </p>
                     </div>
                     <div class="likes">
@@ -37,60 +36,10 @@
                 </div>
 
             </div>
+        </div>
 
-            <div class="list card">
-
-                <div class="item item-avatar">
-                    <div class="foto" style="background-image: url(http://musikr-api.tk/Content/user-default.jpg)"></div>
-                    <h2>Nome do Usuário</h2>
-                    <p>18/10/2016 às 23:15</p>
-                </div>
-
-                <div class="item item-body">
-                    <div class="message-container">
-                        <div class="image-container">
-                            <img class="full-image" src="http://ionicframework.com/img/docs/delorean.jpg">
-                        </div>
-                        <p>
-                            This is a "Facebook" styled Card. The header is created from a Thumbnail List item,
-                            the content is from a card-body consisting of an image and paragraph text. The footer
-                            consists of tabs, icons aligned left, within the card-footer.
-                        </p>
-                    </div>
-
-                    <div class="likes">
-                        <a href="#" ng-class="{liked: 2==1+1}"><i class="ion-ios-heart"></i> 25</a>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="list card">
-
-                <div class="item item-avatar">
-                    <div class="foto" style="background-image: url(http://musikr-api.tk/Content/user-default.jpg)"></div>
-                    <h2>Nome do Usuário</h2>
-                    <p>18/10/2016 às 23:15</p>
-                </div>
-
-                <div class="item item-body">
-
-                    <div class="message-container">
-                        <div class="video-container">
-                            <iframe src="https://www.youtube.com/embed/wyVM1evRxNw" frameborder="0" width="560" height="315"></iframe>
-                        </div>
-                        <p>
-                            This is a "Facebook" styled Card. The header is created from a Thumbnail List item,
-                            the content is from a card-body consisting of an image and paragraph text. The footer
-                            consists of tabs, icons aligned left, within the card-footer.
-                        </p>
-                    </div>
-                    <div class="likes">
-                        <a href="#" ng-class="{liked: 2==1+1}"><i class="ion-ios-heart"></i> 25</a>
-                    </div>
-                </div>
-
-            </div>
+        <div ng-if="listaPublicacao.length < 1" class="text-center">
+            <h4>Você ainda não fez nenhuma publicação, e também nenhuma das bandas ou usuários que você segue fez uma publicação.</h4>
         </div>
     </ion-content>
 </ion-view>

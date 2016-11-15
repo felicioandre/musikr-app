@@ -33,13 +33,13 @@ app.controller('CriarBandaCtrl', function ($scope,
     $scope.dados.nomeBanda = null;
     $scope.dados.FotoBase64 = null;
     $scope.dados.LogoBase64 = null;
-    $scope.dados.GeneroMusical = [];
     $scope.checkItemsGeneroMusical = {};
 
     $scope.criarBanda = function () {
 
         $scope.showLoading();
 
+        $scope.dados.GeneroMusical = [];
         for (i in $scope.checkItemsGeneroMusical) {
             //console.log($scope.checkItems[i]);
             if ($scope.checkItemsGeneroMusical[i] == true) {
@@ -107,7 +107,7 @@ app.controller('CriarBandaCtrl', function ($scope,
             allowEdit: true
         });
     }
-    
+
     $scope.novaFotoAlbum = function () {
         navigator.camera.getPicture($scope.SuccessFoto, $scope.Fail, {
             quality: 50,
@@ -132,60 +132,22 @@ app.controller('CriarBandaCtrl', function ($scope,
 
     $scope.SuccessLogo = function (img) {
         $ionicLoading.show();
-        //console.log(img);
-        //$scope.uploadPhoto(img);
+
         $scope.dados.LogoBase64 = img;
         $ionicLoading.hide();
-        console.log($scope.dados.LogoBase64);
+
     }
 
     $scope.SuccessFoto = function (img) {
         $ionicLoading.show();
-        //console.log(img);
-        //$scope.uploadPhoto(img);
+
         $scope.dados.FotoBase64 = img;
         $ionicLoading.hide();
-        console.log($scope.dados.FotoBase64);
+
     }
 
     $scope.Fail = function () {
         $ionicLoading.hide();
     }
 
-    //$scope.uploadPhoto = function (imagemTirada) {
-    //    //var params = new Object();
-    //    //params.value1 = window.localStorage.getItem("idLogado");
-    //    //var dt = new Date();
-    //    //var time = dt.getDate() + "-" + dt.getMonth() + "-" + dt.getFullYear() + "-" + dt.getHours() + "-" + dt.getMinutes() + "-" + dt.getSeconds();
-
-    //    var options = new FileUploadOptions();
-    //    options.fileKey = "file";
-    //    options.fileName = window.localStorage.getItem("idUsuario") + ".jpeg";
-    //    options.mimeType = "image/jpeg";
-    //    //options.params = params;
-    //    options.headers = {
-    //        Authorization: "Bearer " + window.localStorage.getItem("token")
-    //    };
-    //    options.chunkedMode = false;
-    //    options.method = "POST";
-    //    //console.log(options);
-    //    var ft = new FileTransfer();
-    //    ft.upload(
-    //        imagemTirada,
-    //        encodeURI(SERVIDOR + "perfil/alterar-foto"),
-    //        $scope.onFileUploadSuccess,
-    //        $scope.onFileTransferFail,
-    //        options);
-    //}
-
-    //$scope.onFileUploadSuccess = function (linkImagem) {
-    //    console.log(linkImagem.response);
-    //    $scope.FotoPerfil = linkImagem.response;
-    //    $ionicLoading.hide();
-    //}
-
-    //$scope.onFileTransferFail = function () {
-    //    $ionicLoading.hide();
-    //    $scope.showAlert('Ocorreu um erro ao tentar alterar sua foto!', 'Por favor, tente novamente mais tarde.');
-    //}
 });

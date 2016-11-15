@@ -1,12 +1,26 @@
 <ion-view view-title="Publicar um Texto">
-<ion-content class="padding bg-view">
- <form ng-submit="enviarPublicacao()" class="page-form">
- <label for="texto"><h4>Digite a sua publicação</h4></label>
+    <ion-content class="padding bg-view" ng-show="mostraTela">
+        <form ng-submit="enviarPublicacao()" class="page-form">
+            <label for="texto"><h4>Digite a sua publicação</h4></label>
 
- <ion-item>
-   <textarea rows="1" expanding-textarea ng-model="publicacao.texto" id="texto" class="textarea-autoheight"></textarea>
- </ion-item>
- <button type="submit" class="button button-full button-balanced">Publicar agora</button>
-</form>
-</ion-content>
+            <ion-item>
+                <textarea rows="1" expanding-textarea ng-model="dados.texto" id="texto" class="textarea-autoheight"></textarea>
+            </ion-item>
+            <div ng-if="listaBandas.length > 0" class="lista-radio">
+            
+                <label><h4>Publicar em nome de:</h4></label>
+                <ion-radio ng-model="dados.bandaId" ng-value="0">
+                    <span class="foto-lista" ng-style="{'background-image':'url(' + fotoUsuario + ')'}"></span>
+                    <span class="nome-lista">{{ nomeUsuario }}</span>
+                </ion-radio>
+                <ion-radio ng-repeat="item in listaBandas"
+                           ng-value="item.id"
+                           ng-model="dados.bandaId">
+                    <span class="foto-lista" ng-style="{'background-image':'url(' + item.logotipo + ')'}"></span>
+                    <span class="nome-lista">{{ item.nome }}</span>
+                </ion-radio>
+            </div>
+            <button type="submit" class="button button-full button-balanced">Publicar agora</button>
+        </form>
+    </ion-content>
 </ion-view>

@@ -13,9 +13,10 @@
             <div class="info-content">
                 <div class="foto-perfil"><div ng-style="{'background-image':'url(' + dadosBanda.LogoBanda + ')'}"></div></div>
                 <h1 class="nome-perfil">{{NomeBanda}}</h1>
-                <h5 class="numero-followers">{{dadosBanda.TotalSeguidores}} {{(dadosBanda.TotalSeguidores > 1 ? "seguidores" : "seguidor")}}</h5>
+                <h5 class="numero-followers">{{qtdSeguidores}} {{(qtdSeguidores > 1 ? "seguidores" : "seguidor")}}</h5>
                 <div class="acoes-perfil">
-                    <button type="button" class="button button-balanced">Seguir</button>
+                    <button type="button" class="button button-balanced" ng-if="!usuarioSegueBanda" ng-click="followBanda(1)">Seguir</button>
+                    <button type="button" class="button button-positive" ng-if="usuarioSegueBanda" ng-click="followBanda(2)">Seguindo</button>
                 </div>
             </div>
         </div>
@@ -35,31 +36,35 @@
 
             </div>
         </div>
-            <div class="lista-publicacao lista-perfil">
-                <h4>Publicações</h4>
-                <div class="list card">
+        <div class="lista-publicacao lista-publicacao-perfil lista-perfil padding-horizontal" ng-if="dadosBanda.Publicacoes.length > 0">
+            <h4>Publicações</h4>
+            <div class="list card" ng-repeat="publicacao in dadosBanda.Publicacoes">
 
-                    <div class="item item-avatar">
-                        <div class="foto" style="background-image: url(http://musikr-api.tk/Content/user-default.jpg)"></div>
-                        <h2>Nome da Banda</h2>
-                        <p>18/10/2016 às 23:15</p>
-                    </div>
-
-                    <div class="item item-body">
-                        <div class="message-container">
-                            <p>
-                                This is a "Facebook" styled Card. The header is created from a Thumbnail List item,
-                                the content is from a card-body consisting of an image and paragraph text. The footer
-                                consists of tabs, icons aligned left, within the card-footer.
-                            </p>
-                        </div>
-                        <div class="likes">
-                            <a href="#" ng-class="{liked: 2==1+0}"><i class="ion-ios-heart"></i> 500</a>
-                        </div>
-                    </div>
-
+                <div class="item item-avatar">
+                    <div class="foto" style="background-image: url({{dadosBanda.LogoBanda}})"></div>
+                    <h2>{{NomeBanda}}</h2>
+                    <p>{{publicacao.PublicacaoCriadoEm | date:'dd/MM/yyyy'}} às {{publicacao.PublicacaoCriadoEm | date:'HH:mm'}}</p>
                 </div>
+
+                <div class="item item-body">
+                    <div class="message-container">
+                        <div class="image-container" ng-if="publicacao.Imagem != null && publicacao.Imagem != ''">
+                            <img class="full-image" src="{{publicacao.Imagem}}">
+                        </div>
+                        <div class="video-container" ng-if="publicacao.Video != null && publicacao.Video != ''">
+                            <iframe ng-src="{{publicacao.Video | trustUrl}}" frameborder="0" width="560" height="315" allowfullscreen></iframe>
+                        </div>
+                        <p ng-if="publicacao.Texto != null && publicacao.Texto != ''">
+                            {{publicacao.Texto}}
+                        </p>
+                    </div>
+                    <div class="likes">
+                        <a href="#" ng-class="{liked: 2==1+0}"><i class="ion-ios-heart"></i> 500</a>
+                    </div>
+                </div>
+
             </div>
+        </div>
 
 </ion-content>
 </ion-view>

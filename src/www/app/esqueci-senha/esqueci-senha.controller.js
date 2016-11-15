@@ -16,13 +16,7 @@ app.controller('EsqueciSenhaCtrl', function($scope,
     $scope.dados.email = null;
 
     $scope.esqueciSenha = function() {
-        $ionicLoading.show({
-            content: 'Carregando...',
-            animation: 'fade-in',
-            showBackdrop: true,
-            maxWidth: 200,
-            showDelay: 0
-        });
+        $scope.showLoading();
         //console.log($scope.dados);
         /*$http.get(SERVIDOR + "account/testemetodo")
         .success(function(data) {

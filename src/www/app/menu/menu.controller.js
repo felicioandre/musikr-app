@@ -132,13 +132,7 @@ app.controller('AppCtrl', function ($scope,
     }
 
     $scope.skipStep = function (pagina) {
-        $ionicLoading.show({
-            content: 'Carregando...',
-            animation: 'fade-in',
-            showBackdrop: true,
-            maxWidth: 200,
-            showDelay: 0
-        });
+        $scope.showLoading();
 
         $http({
             method: "POST",
@@ -164,6 +158,7 @@ app.controller('AppCtrl', function ($scope,
     $scope.aplicarInfoUsuario = function () {
         //console.log(window.localStorage.getItem("nomeUsuario"));
         $scope.nomeUsuario = window.localStorage.getItem("nomeUsuario");
+        $scope.idUsuario = window.localStorage.getItem("idUsuario");
         $scope.fotoUsuario = window.localStorage.getItem("fotoPerfil");
     };
 

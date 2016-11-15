@@ -17,14 +17,16 @@ app.controller('PerfilBandaCtrl', function ($scope,
     };
 
     $scope.mostraTela = false;
+    //$stateParams.id = 16;
     $scope.NomeBanda = $stateParams.nome;
     $scope.dadosBanda = null;
+    $scope.usuarioSegueBanda = false;
+    $scope.qtdSeguidores = null;
     $scope.showLoading();
 
     $http({
         method: "GET",
-        //url: SERVIDOR + "banda/detalhe/" + $stateParams.id,
-        url: SERVIDOR + "banda/detalhe/13",
+        url: SERVIDOR + "banda/detalhe/" + $stateParams.id,
         headers: {
             "Authorization": "Bearer " + window.localStorage.getItem("token")
         }
@@ -32,7 +34,9 @@ app.controller('PerfilBandaCtrl', function ($scope,
         $ionicLoading.hide();
         $scope.dadosBanda = data;
         $scope.mostraTela = true;
-        //console.log(data);
+        $scope.usuarioSegueBanda = data.isUserFollowing;
+        $scope.qtdSeguidores = data.TotalSeguidores;
+        console.log(data);
     }).error(function (data, statusCode) {
         $ionicLoading.hide();
         $scope.showAlert('Ocorreu um erro inesperado!', 'Por favor, tente novamente mais tarde.')
@@ -101,8 +105,34 @@ app.controller('PerfilBandaCtrl', function ($scope,
     }
 
     $scope.alterarBanda = function () {
-        console.log("stoy aqui");
         $scope.closePopover();
-        $state.go('app.editar-banda');
+        $state.go('app.editar-banda', { id: $stateParams.id });
     };
+
+    //Seguir Banda
+
+    $scope.followBanda = function (tipo) {
+        $scope.showLoading();
+        $http({
+            method: "POST",
+            url: SERVIDOR + "banda/seguir/" + $stateParams.id + "/" + tipo,
+            headers: {
+                "Authorization": "Bearer " + window.localStorage.getItem("token")
+            }
+        })
+                .success(function (data) {
+                    $scope.qtdSeguidores = data.seguidores;
+
+                    if (tipo == 1) {
+                        $scope.usuarioSegueBanda = true;
+                    } else {
+                        $scope.usuarioSegueBanda = false;
+                    }
+                    $ionicLoading.hide();
+                })
+                .error(function (data, statusCode) {
+                    $ionicLoading.hide();
+                    $scope.showAlert('Ocorreu um erro inesperado!', 'Por favor, tente novamente mais tarde.');
+                });
+    }
 });

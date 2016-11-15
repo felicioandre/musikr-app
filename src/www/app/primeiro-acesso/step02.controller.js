@@ -11,13 +11,7 @@ app.controller('step02Ctrl', function ($scope,
 
     $scope.mostraTela = false;
 
-    $ionicLoading.show({
-        content: 'Carregando...',
-        animation: 'fade-in',
-        showBackdrop: true,
-        maxWidth: 200,
-        showDelay: 0
-    });
+    $scope.showLoading();
 
     $http({
         method: "GET",
@@ -46,13 +40,7 @@ app.controller('step02Ctrl', function ($scope,
         .error(function(data){
         });*/
 
-        $ionicLoading.show({
-            content: 'Carregando...',
-            animation: 'fade-in',
-            showBackdrop: true,
-            maxWidth: 200,
-            showDelay: 0
-        });
+        $scope.showLoading();
 
         //var array = [];
         for (i in $scope.checkItems) {

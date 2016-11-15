@@ -1,68 +1,88 @@
-<ion-view view-title="Nome da Pessoa">
-    <ion-nav-bar class="bar-musikr" ng-class="{expanded: isExpanded, 'has-header-fab-left': hasHeaderFabLeft, 'has-header-fab-right': hasHeaderFabRight}" align-title="center">
-        <ion-nav-buttons side="left">
-            <button class="button button-icon button-clear ion-arrow-left-c" ng-click="voltarPagina()"></button>
-        </ion-nav-buttons>
-    </ion-nav-bar>
+<ion-view>
+    <ion-content class="perfil perfil-usuario" ng-show="mostraTela">
+        <div class="info-user" ng-style="{'background-image':'url(' + dadosPerfil.FotoPerfil + ')'}">
+            <div>
+                <button class="botao-acao botao-voltar" ng-click="voltarPagina()" ng-if="!LinkMenu">
+                    <i class="ion-arrow-left-c"></i>
+                </button>
+                <button class="botao-acao botao-menu" menu-toggle="left" ng-if="LinkMenu">
+                    <i class="ion-navicon-round"></i>
+                </button>
+                <button class="botao-acao botao-ajustes" ng-click="openPopover($event)" ng-if="dadosPerfil.isUserProfile">
+                    <i class="ion-ios-more"></i>
+                </button>
+                <div class="foto" ng-style="{'background-image':'url(' + dadosPerfil.FotoPerfil + ')'}"></div>
+                <h1 class="nome text-center">{{NomeUsuario}}</h1>
+                <div class="seguidores">
+                    <div>
+                        <h4>{{qtdSeguidores}}</h4>
+                        <h6>seguidores</h6>
+                    </div>
+                    <div>
+                        <h4>{{dadosPerfil.TotalSeguindo}}</h4>
+                        <h6>seguindo</h6>
+                    </div>
+                </div>
+                <div class="data-criacao">
+                    usuário desde {{dadosPerfil.CriadoEmFormatado}}
+                </div>
+                <div class="perfil-acao" ng-if="!dadosPerfil.isUserProfile">
+                    <button type="button" class="botao botao-laranja botao-seguir" ng-if="!usuarioSegueUsuario" ng-click="followUsuario(1)">Seguir</button>
+                    <button type="button" class="botao botao-azul botao-seguir" ng-if="usuarioSegueUsuario" ng-click="followUsuario(2)">Seguindo</button>
+                </div>
+            </div>
+        </div>        
 
-    <ion-content class="has-header padding perfil perfil-banda">
-        <div class="foto">
-            <img src="cover.jpg" alt="foto de perfil">
-        </div>
-        <h1 class="nome text-center">Nome do Usuário</h1>
-        <h4 class="numero-followers text-center">800 seguidores</h4>
-        <div class="text-center acoes-perfil">
-            <button type="button" class="button button-balanced">Seguir</button>
-        </div>
-        <div class="lista-instrumentos lista-perfil">
+        <div class="lista-instrumentos lista-perfil padding-horizontal padding-top" ng-if="dadosPerfil.Instrumentos.length > 0 || dadosPerfil.EhVocalista">
             <h4>Instrumentos que Toca</h4>
             <div class="list">
-                <div class="item">
+                <div class="item" ng-if="dadosPerfil.EhVocalista">
                     Cantor
                 </div>
-                <div class="item">
-                    Violão
+                <div class="item" ng-repeat="instrumento in dadosPerfil.Instrumentos">
+                    {{instrumento}}
                 </div>
             </div>
         </div>
-        <div class="lista-perfil lista-genero">
-            <h4>Gêneros musicais que gosta</h4>
+        <div class="lista-perfil lista-genero padding-horizontal" ng-if="dadosPerfil.GenerosMusicais.length > 0">
+            <h4>Gêneros musicais que gosta de escutar</h4>
             <div class="list">
-                <div class="item">
-                    Rock
-                </div>
-                <div class="item">
-                    Violão
+                <div class="item" ng-repeat="genero in dadosPerfil.GenerosMusicais">
+                    {{genero}}
                 </div>
             </div>
         </div>
-        <div class="lista-bandas lista-perfil">
+        <div class="lista-bandas lista-perfil padding-horizontal" ng-if="dadosPerfil.Bandas.length > 0">
             <h4>Bandas que segue</h4>
-            <div class="list">
-                <a class="item item-thumbnail-left" ui-sref="app.perfil-banda">
-                    <img src="cover.jpg" alt="logotipo">
-                    <h2>Nome da Banda</h2>
-                    <p>Criada em 04/11/2016</p>
+            <div class="list" ng-repeat="banda in dadosPerfil.Bandas">
+                <a class="item item-thumbnail-left" ui-sref="app.perfil-banda({id: banda.BandaId, nome: banda.BandaNome})">
+                    <img src="{{banda.BandaLogo}}" alt="{{banda.BandaNome}}">
+                    <h2>{{banda.BandaNome}}</h2>
+                    <p>Criada em {{banda.CriadoEmFormatado}}</p>
                     <p><small>ver perfil</small></p>
                 </a>
             </div>
         </div>
-        <div class="lista-publicacao lista-publicacao-perfil lista-perfil">
+        <div class="lista-publicacao lista-publicacao-perfil lista-perfil padding-horizontal"  ng-if="dadosPerfil.Publicacoes.length > 0">
             <h4>Publicações</h4>
-            <div class="list card">
+            <div class="list card"ng-repeat="publicacao in dadosPerfil.Publicacoes">
 
                 <div class="item item-avatar">
-                    <div class="foto" style="background-image: url(http://musikr-api.tk/Content/user-default.jpg)"></div>
-                    <h2>Nome da Banda</h2>
-                    <p>18/10/2016 às 23:15</p>
+                    <div class="foto" style="background-image: url({{dadosPerfil.FotoPerfil}})"></div>
+                    <h2>{{NomeUsuario}}</h2>
+                    <p>{{publicacao.PublicacaoCriadoEm | date:'dd/MM/yyyy'}} às {{publicacao.PublicacaoCriadoEm | date:'HH:mm'}}</p>
                 </div>
 
                 <div class="item item-body">
                     <div class="message-container">
-                        <p>
-                            This is a "Facebook" styled Card. The header is created from a Thumbnail List item,
-                            the content is from a card-body consisting of an image and paragraph text. The footer
-                            consists of tabs, icons aligned left, within the card-footer.
+                        <div class="image-container" ng-if="publicacao.Imagem != null && publicacao.Imagem != ''">
+                            <img class="full-image" src="{{publicacao.Imagem}}">
+                        </div>
+                        <div class="video-container" ng-if="publicacao.Video != null && publicacao.Video != ''">
+                            <iframe ng-src="{{publicacao.Video | trustUrl}}" frameborder="0" width="560" height="315" allowfullscreen></iframe>
+                        </div>
+                        <p ng-if="publicacao.Texto != null && publicacao.Texto != ''">
+                            {{publicacao.Texto}}
                         </p>
                     </div>
                     <div class="likes">

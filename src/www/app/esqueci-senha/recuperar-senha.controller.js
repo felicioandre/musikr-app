@@ -27,13 +27,7 @@ app.controller('RecuperarSenhaCtrl', function($scope,
     $scope.dados.confirmacaosenha = null;
 
     $scope.redefinirSenha = function() {
-        $ionicLoading.show({
-            content: 'Carregando...',
-            animation: 'fade-in',
-            showBackdrop: true,
-            maxWidth: 200,
-            showDelay: 0
-        });
+        $scope.showLoading();
 
         if(verifyEmpty($scope.dados.senha) || verifyEmpty($scope.dados.confirmacaosenha)){
             $ionicLoading.hide();

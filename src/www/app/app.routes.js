@@ -1,4 +1,4 @@
-app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+app.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
 
     // Turn off caching for demo simplicity's sake
     $ionicConfigProvider.views.maxCache(0);
@@ -154,12 +154,12 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
         }
     })
 
-    .state('app.lista-bandas', {
-        url: '/bandas/lista',
+    .state('app.busca-bandas', {
+        url: '/bandas/busca',
         views: {
             'menuContent': {
-                templateUrl: 'app/bandas/lista.html',
-                controller: 'ListaBandasCtrl'
+                templateUrl: 'app/bandas/busca.html',
+                controller: 'BuscaBandasCtrl'
             }
         },
         params: {
@@ -215,6 +215,63 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
         }
     })
 
+    //Pessoas
+
+    .state('app.pessoas', {
+        url: '/pessoas',
+        views: {
+            'menuContent': {
+                templateUrl: 'app/pessoas/pessoas.html',
+                controller: 'PessoasCtrl'
+            }
+        }
+    })
+
+        .state('app.busca-pessoa-nome', {
+            url: '/pessoas/busca-nome',
+            views: {
+                'menuContent': {
+                    templateUrl: 'app/pessoas/busca-nome.html',
+                    controller: 'BuscaPessoaNomeCtrl'
+                }
+            }
+        })
+
+        .state('app.busca-pessoa-genero', {
+            url: '/pessoas/busca-genero',
+            views: {
+                'menuContent': {
+                    templateUrl: 'app/pessoas/busca-genero.html',
+                    controller: 'BuscaPessoaGeneroCtrl'
+                }
+            }
+        })
+
+        .state('app.busca-pessoa-instrumento', {
+            url: '/pessoas/busca-instrumento',
+            views: {
+                'menuContent': {
+                    templateUrl: 'app/pessoas/busca-instrumento.html',
+                    controller: 'BuscaPessoaInstrumentoCtrl'
+                }
+            }
+        })
+
+        .state('app.busca-pessoa-resultado', {
+            url: '/pessoas/busca',
+            views: {
+                'menuContent': {
+                    templateUrl: 'app/pessoas/busca-resultado.html',
+                    controller: 'BuscaResultadoCtrl'
+                }
+            },
+            params: {
+                id: null,
+                nome: null,
+                tipo: null //1 = genero musical, 2 = instrumento
+            }
+        })
+
     .state('app.perfil-pessoa', {
         url: '/pessoas/perfil',
         views: {
@@ -225,7 +282,8 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
         },
         params: {
             id: null,
-            nome: null
+            nome: null,
+            menu: false
         }
     })
 

@@ -12,13 +12,7 @@ app.controller('step03Ctrl', function($scope,
 
     $scope.mostraTela = false;
 
-    $ionicLoading.show({
-        content: 'Carregando...',
-        animation: 'fade-in',
-        showBackdrop: true,
-        maxWidth: 200,
-        showDelay: 0
-    });
+    $scope.showLoading();
 
     $http({
         method: "GET",
@@ -41,22 +35,9 @@ app.controller('step03Ctrl', function($scope,
     $scope.checkItems = { };
 
     $scope.finalizarStep03 = function() {
-        /*$http.get(SERVIDOR + "account/testemetodo")
-        .success(function(data) {
-        alert(JSON.stringify(data));
-        })
-        .error(function(data){
-        });*/
 
-        $ionicLoading.show({
-            content: 'Carregando...',
-            animation: 'fade-in',
-            showBackdrop: true,
-            maxWidth: 200,
-            showDelay: 0
-        });
+        $scope.showLoading();
 
-        
         for(i in $scope.checkItems) {
             console.log($scope.checkItems[i]);
             if($scope.checkItems[i] == true) {

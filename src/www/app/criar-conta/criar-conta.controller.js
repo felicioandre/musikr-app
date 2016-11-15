@@ -23,13 +23,7 @@ app.controller('CriarContaCtrl', function($scope,
         .error(function(data){
         });*/
 
-        $ionicLoading.show({
-            content: 'Carregando...',
-            animation: 'fade-in',
-            showBackdrop: true,
-            maxWidth: 200,
-            showDelay: 0
-        });
+        $scope.showLoading();
 
         $http.post(SERVIDOR + "account/criar", $scope.dados)
             .success(function(data) {

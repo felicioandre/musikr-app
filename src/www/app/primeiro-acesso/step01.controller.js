@@ -32,13 +32,7 @@ app.controller('step01Ctrl', function($scope,
         .error(function(data){
         });*/
 
-        $ionicLoading.show({
-            content: 'Carregando...',
-            animation: 'fade-in',
-            showBackdrop: true,
-            maxWidth: 200,
-            showDelay: 0
-        });
+        $scope.showLoading();
 
         //console.log($scope.dados);
 

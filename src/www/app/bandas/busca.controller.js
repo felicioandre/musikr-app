@@ -1,4 +1,4 @@
-app.controller('ListaBandasCtrl', function($scope,
+app.controller('BuscaBandasCtrl', function($scope,
     $timeout,
     $state,
     $stateParams,

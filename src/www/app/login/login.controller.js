@@ -38,7 +38,8 @@ app.controller('LoginCtrl', function($scope,
             })
             .error(function(data) {
                 //            console.log(window.localStorage.getItem("token"));
-                window.localStorage.removeItem("token");
+                window.localStorage.clear();
+                //window.localStorage.removeItem("token");
             });
         //
 
@@ -61,19 +62,9 @@ app.controller('LoginCtrl', function($scope,
     $scope.dados.senha = null;
 
     $scope.login = function() {
-        /*$http.get(SERVIDOR + "account/testemetodo")
-        .success(function(data) {
-            alert(JSON.stringify(data));
-        })
-        .error(function(data){
-        });*/
-        $ionicLoading.show({
-            content: 'Carregando...',
-            animation: 'fade-in',
-            showBackdrop: true,
-            maxWidth: 200,
-            showDelay: 0
-        });
+        
+        $scope.showLoading();
+
         $http.post(SERVIDOR + "account/login", $scope.dados)
             .success(function(data) {
                 //alert(JSON.stringify(data));

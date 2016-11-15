@@ -1,0 +1,18 @@
+<ion-view view-title="Pessoas">
+    <ion-nav-bar class="bar-musikr" ng-class="{expanded: isExpanded, 'has-header-fab-left': hasHeaderFabLeft, 'has-header-fab-right': hasHeaderFabRight}" align-title="center">
+        <ion-nav-buttons side="left">
+            <button class="button button-icon button-clear ion-navicon-round" menu-toggle="left"></button>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+
+    <ion-content class="has-header padding">
+        <h4 class="text-center">Procure pelos usuários Musikr através de gêneros musicais, instrumentos que tocam ou pelo nome deles:</h4>
+
+
+        <div class="padding-bottom text-center">
+            <button class="button button-calm button-full" ui-sref="app.busca-pessoa-genero">Procurar por Gêneros Musicais</button>
+            <button class="button button-positive button-full" ui-sref="app.busca-pessoa-instrumento">Procurar por Instrumentos</button>
+            <button class="button button-balanced button-full" ui-sref="app.busca-pessoa-nome">Procurar pelo Nome</button>
+        </div>
+    </ion-content>
+</ion-view>
