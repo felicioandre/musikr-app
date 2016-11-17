@@ -215,6 +215,19 @@ app.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
         }
     })
 
+    .state('app.banda-seguidores', {
+        url: '/bandas/perfil/lista-seguidores',
+        views: {
+            'menuContent': {
+                templateUrl: 'app/bandas/lista-seguidores.html',
+                controller: 'BandaListaSeguidoresCtrl'
+            }
+        },
+        params: {
+            id: null
+        }
+    })
+
     //Pessoas
 
     .state('app.pessoas', {
@@ -284,6 +297,84 @@ app.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
             id: null,
             nome: null,
             menu: false
+        }
+    })
+
+    .state('app.editar-perfil-pessoa', {
+        url: '/pessoas/perfil/editar',
+        views: {
+            'menuContent': {
+                templateUrl: 'app/pessoas/editar-perfil.html',
+                controller: 'EditarPerfilPessoaCtrl'
+            }
+        },
+        params: {
+            id: null
+        }
+    })
+
+    .state('app.editar-generos-pessoa', {
+        url: '/pessoas/perfil/editar-generos',
+        views: {
+            'menuContent': {
+                templateUrl: 'app/pessoas/editar-generos.html',
+                controller: 'EditarGenerosPessoaCtrl'
+            }
+        },
+        params: {
+            id: null
+        }
+    })
+
+    .state('app.editar-instrumentos-pessoa', {
+        url: '/pessoas/perfil/editar-instrumentos',
+        views: {
+            'menuContent': {
+                templateUrl: 'app/pessoas/editar-instrumentos.html',
+                controller: 'EditarInstrumentosPessoaCtrl'
+            }
+        },
+        params: {
+            id: null
+        }
+    })
+
+    .state('app.editar-senha', {
+        url: '/pessoas/perfil/editar-senha',
+        views: {
+            'menuContent': {
+                templateUrl: 'app/pessoas/editar-senha.html',
+                controller: 'EditarSenhaPessoaCtrl'
+            }
+        },
+        params: {
+            id: null
+        }
+    })
+
+    .state('app.pessoa-seguidores', {
+        url: '/pessoas/perfil/lista-seguidores',
+        views: {
+            'menuContent': {
+                templateUrl: 'app/pessoas/lista-seguidores.html',
+                controller: 'ListaSeguidoresCtrl'
+            }
+        },
+        params: {
+            id: null
+        }
+    })
+
+    .state('app.pessoa-seguindo', {
+        url: '/pessoas/perfil/lista-seguindo',
+        views: {
+            'menuContent': {
+                templateUrl: 'app/pessoas/lista-seguindo.html',
+                controller: 'ListaSeguindoCtrl'
+            }
+        },
+        params: {
+            id: null
         }
     })
 

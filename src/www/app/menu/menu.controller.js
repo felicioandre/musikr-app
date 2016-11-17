@@ -89,8 +89,13 @@ app.controller('AppCtrl', function ($scope,
         }
     };
 
+    $scope.voltarPaginaGeral = function () {
+        console.log("champzGeral")
+        $ionicHistory.goBack();
+    }
+
     //Exibir Alert (recebe titulo, conteudo, action que redirecionara, e a direcao)
-    $scope.showAlert = function (titulo, conteudo, action, direction) {
+    $scope.showAlert = function (titulo, conteudo, action, direction, goback) {
         var alertPopup = $ionicPopup.alert({
             title: titulo,
             template: conteudo
@@ -102,6 +107,12 @@ app.controller('AppCtrl', function ($scope,
                     direction = 'forward'
                 $ionicViewSwitcher.nextDirection(direction);
                 $state.go(action);
+            }
+
+            console.log(!verifyEmpty(goback));
+
+            if (!verifyEmpty(goback)) {
+               $scope.voltarPaginaGeral();
             }
         });
     };

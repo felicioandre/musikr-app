@@ -12,8 +12,9 @@ app.controller('EditarBandaCtrl', function ($scope,
     $scope.mostraTela = false;
 
     $scope.showLoading();
-
+    //$stateParams.id = 15;
     $scope.dados = {};
+    $scope.checkItemsGeneroMusical = [];
 
     $http({
         method: "GET",
@@ -30,8 +31,16 @@ app.controller('EditarBandaCtrl', function ($scope,
         $scope.dados.nomeBanda = data.nome;
         $scope.dados.CaminhoLogo = data.logotipo;
         $scope.dados.CaminhoFoto = data.foto;
-        //console.log(data);
+        console.log(data);
         $scope.mostraTela = true;
+
+        for (i in data.generosMusicais) {
+            if (data.generosMusicais[i].checked == true) {
+                console.log(data.generosMusicais[i]);
+                $scope.checkItemsGeneroMusical[data.generosMusicais[i].value] = true;
+            }
+        }
+
         $ionicLoading.hide();
     }).error(function (data, statusCode) {
         $scope.showAlert('Ocorreu um erro inesperado!', 'Por favor, tente novamente mais tarde.')
@@ -40,7 +49,6 @@ app.controller('EditarBandaCtrl', function ($scope,
     //$scope.dados.GeneroMusical = null;
     $scope.dados.FotoBase64 = null;
     $scope.dados.LogoBase64 = null;
-    $scope.checkItemsGeneroMusical = {};
 
     $scope.criarBanda = function () {
 
@@ -104,7 +112,7 @@ app.controller('EditarBandaCtrl', function ($scope,
 
     $scope.showActionSheet = function () {
 
-        $ionicActionSheet.show({
+        var hideSheet = $ionicActionSheet.show({
             buttons: [{
                 text: '<i class="icon ion-android-camera balanced"></i> Usar Câmera'
             }, {
@@ -114,8 +122,10 @@ app.controller('EditarBandaCtrl', function ($scope,
             cancelText: 'Cancelar',
             buttonClicked: function (index) {
                 if (index == 0) {
+                    hideSheet();
                     $scope.novaFotoCamera();
                 } else if (index == 1) {
+                    hideSheet();
                     $scope.novaFotoAlbum();
                 }
                 return true;

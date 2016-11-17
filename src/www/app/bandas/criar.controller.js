@@ -77,7 +77,7 @@ app.controller('CriarBandaCtrl', function ($scope,
 
     $scope.showActionSheet = function () {
 
-        $ionicActionSheet.show({
+        var hideSheet = $ionicActionSheet.show({
             buttons: [{
                 text: '<i class="icon ion-android-camera balanced"></i> Usar Câmera'
             }, {
@@ -87,8 +87,10 @@ app.controller('CriarBandaCtrl', function ($scope,
             cancelText: 'Cancelar',
             buttonClicked: function (index) {
                 if (index == 0) {
+                    hideSheet();
                     $scope.novaFotoCamera();
                 } else if (index == 1) {
+                    hideSheet();
                     $scope.novaFotoAlbum();
                 }
                 return true;

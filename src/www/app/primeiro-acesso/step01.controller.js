@@ -21,6 +21,7 @@ app.controller('step01Ctrl', function($scope,
     $scope.dados = {};
     $scope.dados.DataNascimento = null;
     $scope.dados.Sexo = null;
+    $scope.dados.FotoBase64 = null;
     //$scope.tirouFoto = false;
     $scope.FotoPerfil = SERVIDOR + 'Content/user-default.jpg';
 
@@ -46,6 +47,7 @@ app.controller('step01Ctrl', function($scope,
             })
             .success(function(data) {
                 $ionicLoading.hide();
+                window.localStorage.setItem("fotoPerfil", data.fotoPerfil);
                 $state.go("app.primeiroacesso-step02");
                 //alert(JSON.stringify(data));
             })
@@ -84,7 +86,7 @@ app.controller('step01Ctrl', function($scope,
             targetWidth: 720,
             targetHeight: 720,
             sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY,
-            destinationType: navigator.camera.DestinationType.FILE_URI,
+            destinationType: navigator.camera.DestinationType.DATA_URL,
             allowEdit: true
         });
     }
@@ -95,62 +97,26 @@ app.controller('step01Ctrl', function($scope,
             targetWidth: 720,
             targetHeight: 720,
             sourceType: navigator.camera.PictureSourceType.CAMERA,
-            destinationType: navigator.camera.DestinationType.FILE_URI,
+            destinationType: navigator.camera.DestinationType.DATA_URL,
             allowEdit: true
         });
     }
 
     $scope.Success = function(img) {
         $ionicLoading.show();
-        //console.log(img);
-        $scope.uploadPhoto(img);
-        
+        $scope.FotoPerfil = null;
+        $scope.dados.FotoBase64 = img;
+        console.log(img);
+        $ionicLoading.hide();
     }
 
     $scope.Fail = function() {
         $ionicLoading.hide();
     }
 
-    $scope.uploadPhoto = function(imagemTirada) {
-        //var params = new Object();
-        //params.value1 = window.localStorage.getItem("idLogado");
-        //var dt = new Date();
-        //var time = dt.getDate() + "-" + dt.getMonth() + "-" + dt.getFullYear() + "-" + dt.getHours() + "-" + dt.getMinutes() + "-" + dt.getSeconds();
+    $scope.showActionSheet = function () {
 
-        var options = new FileUploadOptions();
-        options.fileKey = "file";
-        options.fileName = window.localStorage.getItem("idUsuario") + ".jpeg";
-        options.mimeType = "image/jpeg";
-        //options.params = params;
-        options.headers = {
-            Authorization: "Bearer " + window.localStorage.getItem("token")
-        };
-        options.chunkedMode = false;
-        options.method = "POST";
-        //console.log(options);
-        var ft = new FileTransfer();
-        ft.upload(
-            imagemTirada,
-            encodeURI(SERVIDOR + "perfil/alterar-foto"),
-            $scope.onFileUploadSuccess,
-            $scope.onFileTransferFail,
-            options);
-    }
-
-    $scope.onFileUploadSuccess = function(linkImagem) {
-        console.log(linkImagem.response);
-        $scope.FotoPerfil = linkImagem.response;
-        $ionicLoading.hide();
-    }
-
-    $scope.onFileTransferFail = function() {
-        $ionicLoading.hide();
-        $scope.showAlert('Ocorreu um erro ao tentar alterar sua foto!', 'Por favor, tente novamente mais tarde.');
-    }
-
-    $scope.showActionSheet = function() {
-
-        $ionicActionSheet.show({
+        var hideSheet = $ionicActionSheet.show({
             buttons: [{
                 text: '<i class="icon ion-android-camera balanced"></i> Usar Câmera'
             }, {
@@ -158,10 +124,12 @@ app.controller('step01Ctrl', function($scope,
             }],
             titleText: 'Escolher Foto de Perfil',
             cancelText: 'Cancelar',
-            buttonClicked: function(index) {
+            buttonClicked: function (index) {
                 if (index == 0) {
+                    hideSheet();
                     $scope.novaFotoCamera();
                 } else if (index == 1) {
+                    hideSheet();
                     $scope.novaFotoAlbum();
                 }
                 return true;

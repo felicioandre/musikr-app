@@ -2,7 +2,7 @@
     <ion-content class="perfil perfil-usuario" ng-show="mostraTela">
         <div class="info-user" ng-style="{'background-image':'url(' + dadosPerfil.FotoPerfil + ')'}">
             <div>
-                <button class="botao-acao botao-voltar" ng-click="voltarPagina()" ng-if="!LinkMenu">
+                <button class="botao-acao botao-voltar" ng-click="voltarPaginaGeral()" ng-if="!LinkMenu">
                     <i class="ion-arrow-left-c"></i>
                 </button>
                 <button class="botao-acao botao-menu" menu-toggle="left" ng-if="LinkMenu">
@@ -14,11 +14,11 @@
                 <div class="foto" ng-style="{'background-image':'url(' + dadosPerfil.FotoPerfil + ')'}"></div>
                 <h1 class="nome text-center">{{NomeUsuario}}</h1>
                 <div class="seguidores">
-                    <div>
+                    <div ui-sref="app.pessoa-seguidores({id: IdUsuario})">
                         <h4>{{qtdSeguidores}}</h4>
                         <h6>seguidores</h6>
                     </div>
-                    <div>
+                    <div ui-sref="app.pessoa-seguindo({id: IdUsuario})">
                         <h4>{{dadosPerfil.TotalSeguindo}}</h4>
                         <h6>seguindo</h6>
                     </div>

@@ -17,7 +17,8 @@ app.controller('PerfilBandaCtrl', function ($scope,
     };
 
     $scope.mostraTela = false;
-    //$stateParams.id = 16;
+    //$stateParams.id = 15;
+    $scope.IdBanda = $stateParams.id;
     $scope.NomeBanda = $stateParams.nome;
     $scope.dadosBanda = null;
     $scope.usuarioSegueBanda = false;

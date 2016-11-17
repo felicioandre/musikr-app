@@ -1,38 +1,42 @@
 <ion-view>
-  <ion-content class="bg-primeiro-acesso step02" has-bouncing="false">
-    <form ng-submit="finalizarStep02()" ng-show="mostraTela">
-      <div class="header-signup">
-        <div class="content first-access-header">
-          <div class="app-icon">
-          </div>
-          <h1>Gêneros Musicais
-          </h1>
-          <h4>Escolha os gêneros musicais que mais fazem parte do seu cotidiano.
-          </h4>
-        </div>
-      </div>
-      <div class="first-access-content padding-left padding-right padding-bottom">
-        
-        <div class="list">
-          
-          <div class="item item-divider item-title"> 
-            Gêneros Musicais
-          </div>
-          <ion-checkbox ng-repeat="item in listaGenero"
-                     ng-value="item.value"
-                     ng-model="checkItems[item.value]"
-                     ng-checked="item.checked"
-                     ng-class="{selected: checkItems[item.value]}">
-            {{ item.text }}
-          </ion-checkbox>
-          <div class="padding-top">
-            <button type="submit" class="button button-full button-positive">Continuar
-            </button>
-            <button type="button" ng-click="skipStep('app.primeiroacesso-step03')" class="button button-full button-light button-clear">Pular etapa
-            </button>
-          </div>
-        </div>
-      </div>
-    </form>
-  </ion-content>
+    <ion-content class="bg-primeiro-acesso step02" has-bouncing="false">
+        <form ng-submit="finalizarStep02()" ng-show="mostraTela">
+            <div class="header-signup">
+                <div class="content first-access-header">
+                    <div class="app-icon">
+                    </div>
+                    <h1>
+                        Gêneros Musicais
+                    </h1>
+                    <h4>
+                        Escolha os gêneros musicais que mais fazem parte do seu cotidiano.
+                    </h4>
+                </div>
+            </div>
+            <div class="first-access-content padding-left padding-right padding-bottom">
+
+                <div class="list">
+
+                    <div class="item item-divider item-title">
+                        Gêneros Musicais
+                    </div>
+                    <ion-checkbox ng-repeat="item in listaGenero"
+                                  ng-value="item.value"
+                                  ng-model="checkItemsGeneroMusical[item.value]"
+                                  ng-checked="item.checked"
+                                  ng-class="{selected: checkItemsGeneroMusical[item.value]}">
+                        {{ item.text }}
+                    </ion-checkbox>
+                    <div class="padding-top">
+                        <button type="submit" class="button button-full button-positive">
+                            Continuar
+                        </button>
+                        <button type="button" ng-click="skipStep('app.primeiroacesso-step03')" class="button button-full button-light button-clear">
+                            Pular etapa
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </ion-content>
 </ion-view>

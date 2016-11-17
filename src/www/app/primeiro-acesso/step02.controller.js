@@ -13,6 +13,9 @@ app.controller('step02Ctrl', function ($scope,
 
     $scope.showLoading();
 
+    $scope.dados = {};
+    $scope.checkItemsGeneroMusical = [];
+
     $http({
         method: "GET",
         url: SERVIDOR + "genero-musical/lista-genero-musical",
@@ -20,17 +23,22 @@ app.controller('step02Ctrl', function ($scope,
             "Authorization": "Bearer " + window.localStorage.getItem("token")
         }
     }).success(function (data) {
-        $ionicLoading.hide();
         $scope.listaGenero = data;
         $scope.mostraTela = true;
+        for (i in data) {
+            if (data[i].checked == true) {
+                console.log(data[i]);
+                $scope.checkItemsGeneroMusical[data[i].value] = true;
+            }
+        }
+        $ionicLoading.hide();
     }).error(function (data, statusCode) {
         $scope.showAlert('Ocorreu um erro inesperado!', 'Por favor, tente novamente mais tarde.')
     });
 
-    $scope.dados = {};
+    
     //$scope.dados.GeneroMusical = null;
-    $scope.dados.GeneroMusical = [];
-    $scope.checkItems = {};
+    
 
     $scope.finalizarStep02 = function () {
         /*$http.get(SERVIDOR + "account/testemetodo")
@@ -42,14 +50,17 @@ app.controller('step02Ctrl', function ($scope,
 
         $scope.showLoading();
 
+        $scope.dados.GeneroMusical = [];
+
         //var array = [];
-        for (i in $scope.checkItems) {
-            console.log($scope.checkItems[i]);
-            if ($scope.checkItems[i] == true) {
+        for (i in $scope.checkItemsGeneroMusical) {
+            if ($scope.checkItemsGeneroMusical[i] == true) {
                 //array.push(i);
                 $scope.dados.GeneroMusical.push(i);
             }
         }
+
+        //console.log($scope.dados);
 
         //$scope.dados.GeneroMusical = array;
 
@@ -64,7 +75,6 @@ app.controller('step02Ctrl', function ($scope,
             .success(function (data) {
                 $ionicLoading.hide();
                 $state.go("app.primeiroacesso-step03");
-                //alert(JSON.stringify(data));
             })
             .error(function (data, statusCode) {
                 $ionicLoading.hide();

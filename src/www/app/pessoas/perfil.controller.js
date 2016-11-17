@@ -12,23 +12,16 @@ app.controller('PerfilPessoaCtrl', function ($scope,
 
     $ionicSideMenuDelegate.canDragContent(false)
 
-    $scope.voltarPagina = function () {
-        //console.log('hey');
-        $ionicHistory.goBack();
-    }
-
     $scope.mostraTela = false;
     $scope.NomeUsuario = $stateParams.nome;
     //$scope.NomeUsuario = "Nome do Usuario";
     $scope.LinkMenu = $stateParams.menu;
     //$stateParams.id = 66;
-    //$scope.LinkMenu = true;
+    $scope.IdUsuario = $stateParams.id;
+    // $scope.LinkMenu = true;
     $scope.dadosUsuario = null;
     $scope.usuarioSegueUsuario = false;
     $scope.qtdSeguidores = null;
-
-    $scope.testeVideo = "https://www.youtube.com/embed/EfYgGKDSESw";
-    $scope.testeVideo = $sce.trustAsResourceUrl($scope.testeVideo);
 
     $scope.showLoading();
 
@@ -44,7 +37,7 @@ app.controller('PerfilPessoaCtrl', function ($scope,
         $scope.mostraTela = true;
         $scope.qtdSeguidores = data.TotalSeguidores;
         $scope.usuarioSegueUsuario = data.isUserFollowing;
-        console.log(data);
+        //console.log(data);
     }).error(function (data, statusCode) {
         $ionicLoading.hide();
         $scope.showAlert('Ocorreu um erro inesperado!', 'Por favor, tente novamente mais tarde.')
@@ -98,5 +91,18 @@ app.controller('PerfilPessoaCtrl', function ($scope,
                     $ionicLoading.hide();
                     $scope.showAlert('Ocorreu um erro inesperado!', 'Por favor, tente novamente mais tarde.');
                 });
+    }
+
+    $scope.alterarPerfil = function () {
+        $state.go('app.editar-perfil-pessoa', { id: $stateParams.id });
+    }
+    $scope.alterarGenerosMusicais = function () {
+        $state.go('app.editar-generos-pessoa', { id: $stateParams.id });
+    }
+    $scope.alterarInstrumentos = function () {
+        $state.go('app.editar-instrumentos-pessoa', { id: $stateParams.id });
+    }
+    $scope.alterarSenha = function () {
+        $state.go('app.editar-senha', { id: $stateParams.id });
     }
 });

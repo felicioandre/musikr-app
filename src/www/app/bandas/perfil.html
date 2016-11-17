@@ -13,7 +13,7 @@
             <div class="info-content">
                 <div class="foto-perfil"><div ng-style="{'background-image':'url(' + dadosBanda.LogoBanda + ')'}"></div></div>
                 <h1 class="nome-perfil">{{NomeBanda}}</h1>
-                <h5 class="numero-followers">{{qtdSeguidores}} {{(qtdSeguidores > 1 ? "seguidores" : "seguidor")}}</h5>
+                <h5 class="numero-followers" ui-sref="app.banda-seguidores({id: IdBanda})">{{qtdSeguidores}} {{(qtdSeguidores > 1 ? "seguidores" : "seguidor")}}</h5>
                 <div class="acoes-perfil">
                     <button type="button" class="button button-balanced" ng-if="!usuarioSegueBanda" ng-click="followBanda(1)">Seguir</button>
                     <button type="button" class="button button-positive" ng-if="usuarioSegueBanda" ng-click="followBanda(2)">Seguindo</button>
