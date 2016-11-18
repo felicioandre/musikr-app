@@ -6,7 +6,7 @@ app.controller('PerfilPessoaCtrl', function ($scope,
     $http,
     $ionicLoading,
     $ionicHistory,
-    $sce,
+    $filter,
     $ionicViewSwitcher,
     $ionicPopover) {
 
@@ -37,7 +37,7 @@ app.controller('PerfilPessoaCtrl', function ($scope,
         $scope.mostraTela = true;
         $scope.qtdSeguidores = data.TotalSeguidores;
         $scope.usuarioSegueUsuario = data.isUserFollowing;
-        //console.log(data);
+        console.log(data);
     }).error(function (data, statusCode) {
         $ionicLoading.hide();
         $scope.showAlert('Ocorreu um erro inesperado!', 'Por favor, tente novamente mais tarde.')
@@ -104,5 +104,29 @@ app.controller('PerfilPessoaCtrl', function ($scope,
     }
     $scope.alterarSenha = function () {
         $state.go('app.editar-senha', { id: $stateParams.id });
+    }
+
+    //curtir publicacao
+    $scope.curtirPublicacao = function (id) {
+        $scope.showLoading();
+        //console.log(id);
+
+        $http({
+            method: "POST",
+            url: SERVIDOR + "publicacao/curtir/" + id,
+            headers: {
+                "Authorization": "Bearer " + window.localStorage.getItem("token")
+            }
+        })
+        .success(function (data) {
+            var publicacao = $filter('filter')($scope.dadosPerfil.Publicacoes, function (d) { return d.IdPublicacao === id; })[0]
+            publicacao.UsuarioJaCurtiu = !publicacao.UsuarioJaCurtiu;
+            publicacao.QtdLikes = data.qtd;
+            $ionicLoading.hide();
+        })
+        .error(function (data, statusCode) {
+            $ionicLoading.hide();
+            $scope.showAlert('Ocorreu um erro inesperado!', 'Por favor, tente novamente mais tarde.');
+        });
     }
 });

@@ -86,7 +86,7 @@
                         </p>
                     </div>
                     <div class="likes">
-                        <a href="#" ng-class="{liked: 2==1+0}"><i class="ion-ios-heart"></i> 500</a>
+                        <a ng-class="{liked: (publicacao.UsuarioJaCurtiu)}" ng-click="curtirPublicacao(publicacao.IdPublicacao)"><i class="ion-ios-heart"></i> {{publicacao.QtdLikes}}</a>
                     </div>
                 </div>
 

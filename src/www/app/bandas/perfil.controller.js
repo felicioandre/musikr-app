@@ -4,6 +4,7 @@ app.controller('PerfilBandaCtrl', function ($scope,
     $stateParams,
     $ionicSideMenuDelegate,
     $http,
+    $filter,
     $ionicLoading,
     $ionicHistory,
     $ionicViewSwitcher,
@@ -135,5 +136,29 @@ app.controller('PerfilBandaCtrl', function ($scope,
                     $ionicLoading.hide();
                     $scope.showAlert('Ocorreu um erro inesperado!', 'Por favor, tente novamente mais tarde.');
                 });
+    }
+
+    //curtir publicacao
+    $scope.curtirPublicacao = function (id) {
+        $scope.showLoading();
+        //console.log(id);
+
+        $http({
+            method: "POST",
+            url: SERVIDOR + "publicacao/curtir/" + id,
+            headers: {
+                "Authorization": "Bearer " + window.localStorage.getItem("token")
+            }
+        })
+        .success(function (data) {
+            var publicacao = $filter('filter')($scope.dadosBanda.Publicacoes, function (d) { return d.IdPublicacao === id; })[0]
+            publicacao.UsuarioJaCurtiu = !publicacao.UsuarioJaCurtiu;
+            publicacao.QtdLikes = data.qtd;
+            $ionicLoading.hide();
+        })
+        .error(function (data, statusCode) {
+            $ionicLoading.hide();
+            $scope.showAlert('Ocorreu um erro inesperado!', 'Por favor, tente novamente mais tarde.');
+        });
     }
 });
