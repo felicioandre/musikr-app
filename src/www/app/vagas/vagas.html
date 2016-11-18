@@ -1,0 +1,25 @@
+<ion-view view-title="Vagas">
+    <ion-nav-bar class="bar-musikr" ng-class="{expanded: isExpanded, 'has-header-fab-left': hasHeaderFabLeft, 'has-header-fab-right': hasHeaderFabRight}" align-title="center">
+        <ion-nav-buttons side="left">
+            <button class="button button-icon button-clear ion-navicon-round" menu-toggle="left"></button>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+
+    <ion-content class="has-header padding" ng-show="mostraTela">
+        <h4 class="text-center">Veja as vagas disponíveis nas bandas:</h4>
+
+        <div class="padding-bottom text-center">
+            <button class="button button-clear button-positive button-full" ui-sref="app.lista-vagas({instrumento: 0, todas: true})">Ver todas as vagas disponíveis</button>
+            <button class="button button-balanced button-full" ui-sref="app.lista-vagas-instrumentos">Procurar vaga pro instrumento</button>
+        </div>
+
+        <div ng-if="ehAdminBanda">
+            <h4 class="text-center">Tem uma vaga disponível na sua banda? Divulgue aqui:</h4>
+
+            <div class="padding-bottom text-center">
+                <button class="button button-calm button-full" ui-sref="app.criar-vaga">Divulgar Vaga</button>
+                <button class="button button-positive button-full" ui-sref="app.minhas-vagas">Minhas Vagas Cadastradas</button>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

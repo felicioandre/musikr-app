@@ -56,6 +56,12 @@ app.controller('BuscaPessoaInstrumentoCtrl', function ($scope,
 
     $scope.showLoading();
 
+    $scope.listaInstrumento = [{
+        checked: false,
+        text: "Vocalista",
+        value: 0
+    }];
+
     $http({
         method: "GET",
         url: SERVIDOR + "instrumento/lista-instrumento",
@@ -64,7 +70,10 @@ app.controller('BuscaPessoaInstrumentoCtrl', function ($scope,
         }
     }).success(function (data) {
         $ionicLoading.hide();
-        $scope.listaInstrumento = data;
+        //$scope.listaInstrumento = data;
+        $scope.listaInstrumento = $scope.listaInstrumento.concat(data);
+        console.log(data);
+        console.log($scope.listaInstrumento);
         $scope.mostraTela = true;
     }).error(function (data, statusCode) {
         $scope.showAlert('Ocorreu um erro inesperado!', 'Por favor, tente novamente mais tarde.')

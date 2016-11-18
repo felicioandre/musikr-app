@@ -15,8 +15,8 @@
                 <h1 class="nome-perfil">{{NomeBanda}}</h1>
                 <h5 class="numero-followers" ui-sref="app.banda-seguidores({id: IdBanda})">{{qtdSeguidores}} {{(qtdSeguidores > 1 ? "seguidores" : "seguidor")}}</h5>
                 <div class="acoes-perfil">
-                    <button type="button" class="button button-balanced" ng-if="!usuarioSegueBanda" ng-click="followBanda(1)">Seguir</button>
-                    <button type="button" class="button button-positive" ng-if="usuarioSegueBanda" ng-click="followBanda(2)">Seguindo</button>
+                    <button type="button" class="botao botao-laranja botao-seguir" ng-if="!usuarioSegueBanda" ng-click="followBanda(1)">Seguir</button>
+                    <button type="button" class="botao botao-azul botao-seguir" ng-if="usuarioSegueBanda" ng-click="followBanda(2)">Seguindo</button>
                 </div>
             </div>
         </div>
@@ -25,7 +25,7 @@
             <h4>Integrantes</h4>
             <div class="list">
 
-                <div class="item item-thumbnail-left" ui-sref="app.perfil-pessoa" ng-repeat="item in dadosBanda.Integrantes">
+                <div class="item item-thumbnail-left" ui-sref="app.perfil-pessoa({id: item.IdIntegrante, nome: item.NomeIntegrante, menu: false})" ng-repeat="item in dadosBanda.Integrantes">
                     <img src="{{item.FotoIntegrante}}" alt="Foto de Perfil">
                     <h2>{{item.NomeIntegrante}}</h2>
                     <p class="integrante-instrumentos">

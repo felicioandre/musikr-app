@@ -1,0 +1,32 @@
+<ion-view view-title="Vaga para {{NomeInstrumento}}">
+    <ion-nav-bar class="bar-musikr" ng-class="{expanded: isExpanded, 'has-header-fab-left': hasHeaderFabLeft, 'has-header-fab-right': hasHeaderFabRight}" align-title="center">
+        <ion-nav-buttons side="left">
+            <button class="button button-icon button-clear ion-arrow-left-c" ng-click="voltarPaginaGeral()"></button>
+        </ion-nav-buttons>
+        <ion-nav-buttons side="right">
+            <button class="button button-icon button-clear ion-ios-more" ng-click="openPopover($event)" ng-if="dadosVaga.isUserAdmin && mostraTela"></button>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+
+    <ion-content class="has-header padding detalhe-vaga" ng-show="mostraTela">
+        <div class="info-vaga">
+            <div class="logo-banda" ng-style="{'background-image':'url(' + dadosVaga.LogoBanda + ')'}">
+            </div>
+            <h2>{{dadosVaga.NomeBanda}}</h2>
+            <div class="text-center">
+                <a ui-sref="app.perfil-banda({id: dadosVaga.IdBanda, nome: dadosVaga.NomeBanda})" class="button button-positive button-small">Ver Perfil da Banda</a>
+            </div>
+            <h1>{{dadosVaga.Titulo}}</h1>
+            <p ng-if="dadosVaga.Descricao != '' && dadosVaga.Descricao != null">{{dadosVaga.Descricao}}</p>
+            <h4>Vaga para {{NomeInstrumento}}</h4>
+            <h6>Divulgado em {{dadosVaga.CriadoEm | date:'dd/MM/yyyy'}} às {{dadosVaga.CriadoEm | date:'HH:mm'}}</h6>
+            <div class="text-center" ng-if="!dadosVaga.isUserIntegranteBanda && !usuarioCandidato">
+                <a ng-click="candidatar()" class="button button-balanced">Tenho interesse na vaga</a>
+            </div>
+            <div class="text-center" ng-if="!dadosVaga.isUserIntegranteBanda && usuarioCandidato">
+                <a ng-click="removerCandidato()" class="button button-assertive">Remover interesse em vaga</a>
+            </div>
+        </div>
+
+    </ion-content>
+</ion-view>

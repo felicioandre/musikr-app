@@ -90,7 +90,7 @@ app.controller('AppCtrl', function ($scope,
     };
 
     $scope.voltarPaginaGeral = function () {
-        console.log("champzGeral")
+        //console.log("champzGeral")
         $ionicHistory.goBack();
     }
 
@@ -121,7 +121,9 @@ app.controller('AppCtrl', function ($scope,
 
         var confirmPopup = $ionicPopup.confirm({
             title: "Você tem certeza que deseja sair?",
-            template: "As alterações que não estiverem salvas, serão perdidas."
+            template: "As alterações que não estiverem salvas, serão perdidas.",
+            cancelText: 'Cancelar',
+            okText: 'Sair'
         });
         confirmPopup.then(function (res) {
             if (res) {

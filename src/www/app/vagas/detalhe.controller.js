@@ -1,4 +1,4 @@
-app.controller('PerfilBandaCtrl', function ($scope,
+app.controller('DetalheVagaCtrl', function ($scope,
     $timeout,
     $state,
     $stateParams,
@@ -13,40 +13,33 @@ app.controller('PerfilBandaCtrl', function ($scope,
 
     $ionicSideMenuDelegate.canDragContent(false)
 
-    $scope.voltarPagina = function () {
-        $ionicHistory.goBack();
-    };
-
     $scope.mostraTela = false;
-    //$stateParams.id = 15;
-    $scope.IdBanda = $stateParams.id;
-    $scope.NomeBanda = $stateParams.nome;
-    $scope.dadosBanda = null;
-    $scope.usuarioSegueBanda = false;
-    $scope.qtdSeguidores = null;
+    //$stateParams.id = 7;
+    //$scope.NomeInstrumento = "Violão";
+    $scope.NomeInstrumento = $stateParams.instrumento;
+    $scope.dadosVaga = null;
+    $scope.usuarioCandidato = false;
     $scope.showLoading();
 
     $http({
         method: "GET",
-        url: SERVIDOR + "banda/detalhe/" + $stateParams.id,
+        url: SERVIDOR + "vagas/detalhe/" + $stateParams.id,
         headers: {
             "Authorization": "Bearer " + window.localStorage.getItem("token")
         }
     }).success(function (data) {
         $ionicLoading.hide();
-        $scope.dadosBanda = data;
+        $scope.dadosVaga = data;
         $scope.mostraTela = true;
-        $scope.usuarioSegueBanda = data.isUserFollowing;
-        $scope.qtdSeguidores = data.TotalSeguidores;
-        console.log(data);
+        $scope.usuarioCandidato = data.isUserCandidato;
+        //console.log(data);
     }).error(function (data, statusCode) {
         $ionicLoading.hide();
         $scope.showAlert('Ocorreu um erro inesperado!', 'Por favor, tente novamente mais tarde.')
     });
-
+    
     //popover button
-    // .fromTemplate() method
-    $ionicPopover.fromTemplateUrl('app/bandas/popover-perfil.html', {
+    $ionicPopover.fromTemplateUrl('app/vagas/popover-detalhe.html', {
         scope: $scope
     }).then(function (popover) {
         $scope.popover = popover;
@@ -65,40 +58,31 @@ app.controller('PerfilBandaCtrl', function ($scope,
         $scope.popover.remove();
     });
 
-    //// execute action on hide popover
-    //$scope.$on('popover.hidden', function () {
-    //    // execute action
-    //});
-
-    //// execute action on remove popover
-    //$scope.$on('popover.removed', function () {
-    //    // execute action
-    //});
-
-    $scope.excluirBanda = function () {
+    $scope.excluirVaga = function () {
         //console.log("stoy aqui");
         $scope.closePopover();
 
         var confirmPopup = $ionicPopup.confirm({
-            title: "Você tem certeza que deseja excluir sua banda?",
-            template: "Todos os dados serão perdidos.",
+            title: "Você tem certeza que deseja excluir essa vaga?",
+            template: "Todos os dados registrados serão perdidos.",
             cancelText: 'Cancelar',
             okText: 'Excluir'
         });
         confirmPopup.then(function (res) {
             if (res) {
+                //console.log("excluiiiii caraaai");
                 $scope.showLoading();
 
                 $http({
                     method: "POST",
-                    url: SERVIDOR + "banda/deletar/" + $stateParams.id,
+                    url: SERVIDOR + "vagas/deletar/" + $stateParams.id,
                     headers: {
                         "Authorization": "Bearer " + window.localStorage.getItem("token")
                     }
                 })
                 .success(function (data) {
                     $ionicLoading.hide();
-                    $scope.showAlert('OK!', 'Sua banda foi deletada com sucesso!', 'app.minhas-bandas', 'back');
+                    $scope.showAlert('OK!', 'A vaga foi excluida com sucesso!', 'app.minhas-vagas', 'back');
                 })
                 .error(function (data, statusCode) {
                     $ionicLoading.hide();
@@ -108,63 +92,50 @@ app.controller('PerfilBandaCtrl', function ($scope,
         });
     }
 
-    $scope.alterarBanda = function () {
+    $scope.alterarVaga = function () {
         $scope.closePopover();
-        $state.go('app.editar-banda', { id: $stateParams.id });
+        $state.go('app.editar-vaga', { id: $stateParams.id });
     };
 
-    $scope.integrantes = function () {
-        $scope.closePopover();
-        $state.go('app.integrantes-banda', { id: $stateParams.id });
-    };
-    //Seguir Banda
+    $scope.candidatar = function () {
 
-    $scope.followBanda = function (tipo) {
         $scope.showLoading();
+
         $http({
             method: "POST",
-            url: SERVIDOR + "banda/seguir/" + $stateParams.id + "/" + tipo,
+            url: SERVIDOR + "vagas/adicionar-candidato/" + $stateParams.id,
             headers: {
                 "Authorization": "Bearer " + window.localStorage.getItem("token")
             }
         })
                 .success(function (data) {
-                    $scope.qtdSeguidores = data.seguidores;
-
-                    if (tipo == 1) {
-                        $scope.usuarioSegueBanda = true;
-                    } else {
-                        $scope.usuarioSegueBanda = false;
-                    }
                     $ionicLoading.hide();
+                    $scope.usuarioCandidato = true;
                 })
                 .error(function (data, statusCode) {
                     $ionicLoading.hide();
                     $scope.showAlert('Ocorreu um erro inesperado!', 'Por favor, tente novamente mais tarde.');
                 });
-    }
+    };
 
-    //curtir publicacao
-    $scope.curtirPublicacao = function (id) {
+    $scope.removerCandidato = function () {
+
         $scope.showLoading();
-        //console.log(id);
 
         $http({
             method: "POST",
-            url: SERVIDOR + "publicacao/curtir/" + id,
+            url: SERVIDOR + "vagas/remover-candidato/" + $stateParams.id,
             headers: {
                 "Authorization": "Bearer " + window.localStorage.getItem("token")
             }
         })
-        .success(function (data) {
-            var publicacao = $filter('filter')($scope.dadosBanda.Publicacoes, function (d) { return d.IdPublicacao === id; })[0]
-            publicacao.UsuarioJaCurtiu = !publicacao.UsuarioJaCurtiu;
-            publicacao.QtdLikes = data.qtd;
-            $ionicLoading.hide();
-        })
-        .error(function (data, statusCode) {
-            $ionicLoading.hide();
-            $scope.showAlert('Ocorreu um erro inesperado!', 'Por favor, tente novamente mais tarde.');
-        });
-    }
+                .success(function (data) {
+                    $ionicLoading.hide();
+                    $scope.usuarioCandidato = false;
+                })
+                .error(function (data, statusCode) {
+                    $ionicLoading.hide();
+                    $scope.showAlert('Ocorreu um erro inesperado!', 'Por favor, tente novamente mais tarde.');
+                });
+    };
 });

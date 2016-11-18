@@ -228,6 +228,45 @@ app.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
         }
     })
 
+    .state('app.integrantes-banda', {
+        url: '/bandas/integrantes-minha-banda',
+        views: {
+            'menuContent': {
+                templateUrl: 'app/bandas/integrantes.html',
+                controller: 'IntegrantesBandaCtrl'
+            }
+        },
+        params: {
+            id: null
+        }
+    })
+
+    .state('app.adicionar-integrante-banda', {
+        url: '/bandas/integrantes-minha-banda/adicionar',
+        views: {
+            'menuContent': {
+                templateUrl: 'app/bandas/integrantes-adicionar.html',
+                controller: 'AdicionarIntegranteBandaCtrl'
+            }
+        },
+        params: {
+            id: null
+        }
+    })
+
+        .state('app.editar-integrante-banda', {
+            url: '/bandas/integrantes-minha-banda/editar',
+            views: {
+                'menuContent': {
+                    templateUrl: 'app/bandas/integrantes-editar.html',
+                    controller: 'EditarIntegranteBandaCtrl'
+                }
+            },
+            params: {
+                id: null,
+                idBanda: null
+            }
+        })
     //Pessoas
 
     .state('app.pessoas', {
@@ -378,6 +417,100 @@ app.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
         }
     })
 
+    //Pessoas
+
+    .state('app.vagas', {
+        url: '/vagas',
+        views: {
+            'menuContent': {
+                templateUrl: 'app/vagas/vagas.html',
+                controller: 'VagasCtrl'
+            }
+        }
+    })
+
+    .state('app.criar-vaga', {
+        url: '/vagas/criar',
+        views: {
+            'menuContent': {
+                templateUrl: 'app/vagas/criar.html',
+                controller: 'CriarVagaCtrl'
+            }
+        }
+    })
+
+    .state('app.minhas-vagas', {
+        url: '/vagas/minhas-vagas',
+        views: {
+            'menuContent': {
+                templateUrl: 'app/vagas/minhas-vagas.html',
+                controller: 'MinhasVagasCtrl'
+            }
+        }
+    })
+
+    .state('app.lista-vagas', {
+        url: '/vagas/lista-vagas',
+        views: {
+            'menuContent': {
+                templateUrl: 'app/vagas/lista-vagas.html',
+                controller: 'ListaVagasCtrl'
+            }
+        },
+        params: {
+            instrumento: null,
+            todas: false
+        }
+    })
+
+    .state('app.lista-vagas-instrumentos', {
+        url: '/vagas/lista-vagas-instrumentos',
+        views: {
+            'menuContent': {
+                templateUrl: 'app/vagas/busca-instrumento.html',
+                controller: 'BuscaVagaInstrumentoCtrl'
+            }
+        }
+    })
+
+    .state('app.detalhe-vaga', {
+        url: '/vagas/detalhe',
+        views: {
+            'menuContent': {
+                templateUrl: 'app/vagas/detalhe.html',
+                controller: 'DetalheVagaCtrl'
+            }
+        },
+        params: {
+            id: null,
+            instrumento: null
+        }
+    })
+    .state('app.editar-vaga', {
+        url: '/vagas/editar',
+        views: {
+            'menuContent': {
+                templateUrl: 'app/vagas/editar.html',
+                controller: 'EditarVagaCtrl'
+            }
+        },
+        params: {
+            id: null
+        }
+    })
+
+    .state('app.candidatos-vaga', {
+        url: '/vagas/candidatos',
+        views: {
+            'menuContent': {
+                templateUrl: 'app/vagas/candidatos.html',
+                controller: 'CandidatosVagaCtrl'
+            }
+        },
+        params: {
+            id: null
+        }
+    })
     ;
 
     $urlRouterProvider.otherwise('/app/login');

@@ -1,7 +1,7 @@
-<ion-view view-title="{{NomeGenero}}">
+<ion-view view-title="Candidatos">
     <ion-nav-bar class="bar-musikr" ng-class="{expanded: isExpanded, 'has-header-fab-left': hasHeaderFabLeft, 'has-header-fab-right': hasHeaderFabRight}" align-title="center">
         <ion-nav-buttons side="left">
-            <button class="button button-icon button-clear ion-arrow-left-c" ng-click="voltarPagina()"></button>
+            <button class="button button-icon button-clear ion-arrow-left-c" ng-click="voltarPaginaGeral()"></button>
         </ion-nav-buttons>
     </ion-nav-bar>
 
@@ -12,10 +12,6 @@
             <div class="item item-thumbnail-left" ui-sref="app.perfil-pessoa({id: item.id, nome: item.nome, menu: false})" data-id="{{item.id}}" ng-repeat="item in listaUsuario">
                 <img src="{{item.foto}}" alt="Foto de Perfil">
                 <h2>{{item.nome}}</h2>
-                <p class="integrante-instrumentos item-lista" ng-if="TipoResultado == 1">
-                    <span ng-if="item.isCantor">Vocalista</span>
-                    <span ng-repeat="instrumento in item.instrumentos">{{instrumento}}</span>
-                </p>
                 <p class="integrante-generos item-lista" ng-if="TipoResultado == 2">
                     <span ng-repeat="genero in item.generos">{{genero}}</span>
                 </p>
@@ -26,8 +22,8 @@
             </div>
         </div>
         <div ng-if="listaUsuario.length < 1" class="text-center">
-            <h4>Nenhum usuário encontrado.</h4>
-            <a ng-click="voltarPagina()" class="button button-positive icon-left ion-chevron-left">Voltar</a>
+            <h4>Nenhum candidato encontrado.</h4>
+            <a ng-click="voltarPaginaGeral()" class="button button-positive icon-left ion-chevron-left">Voltar</a>
         </div>
     </ion-content>
 </ion-view>
